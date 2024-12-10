@@ -7,13 +7,13 @@ namespace SupTechHackathon2024.EFCore.Models
     {
         public CustomerType()
         {
-            Cbecustomers = new HashSet<Cbecustomer>();
+            CbeCustomers = new HashSet<CbeCustomer>();
         }
 
         public short Id { get; set; }
         public string NameAr { get; set; } = null!;
         public string NameEn { get; set; } = null!;
 
-        public virtual ICollection<Cbecustomer> Cbecustomers { get; set; }
+        public virtual ICollection<CbeCustomer> CbeCustomers { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace SupTechHackathon2024.EFCore.Models
     {
         public Sme()
         {
-            Cbecustomers = new HashSet<Cbecustomer>();
+            CbeCustomers = new HashSet<CbeCustomer>();
         }
 
         public int Id { get; set; }
@@ -18,6 +18,6 @@ namespace SupTechHackathon2024.EFCore.Models
         public string IndustrySector { get; set; } = null!;
 
         public virtual Person LegalRepresentativePerson { get; set; } = null!;
-        public virtual ICollection<Cbecustomer> Cbecustomers { get; set; }
+        public virtual ICollection<CbeCustomer> CbeCustomers { get; set; }
     }
 }

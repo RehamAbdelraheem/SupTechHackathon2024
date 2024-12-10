@@ -1,30 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SupTechHackathon2024.EFCore.Models
+namespace SupTechHackathon2024.EFCore.Models;
+
+public partial class Call
 {
-    public partial class Call
-    {
-        public long Id { get; set; }
-        public string CbecustomerId { get; set; } = null!;
-        public string AgentId { get; set; } = null!;
-        public string AgentName { get; set; } = null!;
-        public int BankId { get; set; }
-        public int BranchId { get; set; }
-        public string Transcript { get; set; } = null!;
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        public bool? IsAianalysisFailed { get; set; }
-        public string? CustomerSatisfaction { get; set; }
-        public bool? IsMisSellingDetected { get; set; }
-        public string? MisSellingDescription { get; set; }
-        public string? RecommendedActionForBankOrRegulator { get; set; }
-        public string? GuidlinesForCustomer { get; set; }
-        public int? FinancialProductId { get; set; }
+    public long Id { get; set; }
+    public string CbeCustomerId { get; set; } = null!;
+    public int BankId { get; set; }
+    public int BankBranchId { get; set; }
+    public string Transcript { get; set; } = null!;
+    public DateTime StartTime { get; set; }
+    public DateTime EndTime { get; set; }
+    public bool? IsAiAnalysisFailed { get; set; }
+    public bool? IsMisSellingDetected { get; set; }
+    public int? MisSellingCategoryId { get; set; }
+    public int? FinancialServiceId { get; set; }
 
-        public virtual Bank Bank { get; set; } = null!;
-        public virtual BankBranch Branch { get; set; } = null!;
-        public virtual Cbecustomer Cbecustomer { get; set; } = null!;
-        public virtual FinancialService? FinancialProduct { get; set; }
-    }
+    public virtual Bank Bank { get; set; } = null!;
+    public virtual BankBranch Branch { get; set; } = null!;
+    public virtual CbeCustomer CbeCustomer { get; set; } = null!;
+    public virtual FinancialService? FinancialService { get; set; }
+    public virtual MisSellingCategory? MisSellingCategory { get; set; }
 }

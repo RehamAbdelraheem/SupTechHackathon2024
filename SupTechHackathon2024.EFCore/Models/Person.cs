@@ -7,7 +7,7 @@ namespace SupTechHackathon2024.EFCore.Models
     {
         public Person()
         {
-            Cbecustomers = new HashSet<Cbecustomer>();
+            CbeCustomers = new HashSet<CbeCustomer>();
             Smes = new HashSet<Sme>();
         }
 
@@ -29,7 +29,7 @@ namespace SupTechHackathon2024.EFCore.Models
         public virtual EmploymentStatus EmploymentStatus { get; set; } = null!;
         public virtual MaritalStatus MaritalStatus { get; set; } = null!;
         public virtual OfficialIdDocumentType OfficialIdDocumentType { get; set; } = null!;
-        public virtual ICollection<Cbecustomer> Cbecustomers { get; set; }
+        public virtual ICollection<CbeCustomer> CbeCustomers { get; set; }
         public virtual ICollection<Sme> Smes { get; set; }
     }
 }

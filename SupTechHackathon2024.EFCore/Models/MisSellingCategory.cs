@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SupTechHackathon2024.EFCore.Models;
 
-public partial class FinancialService
+public partial class MisSellingCategory
 {
-    public FinancialService()
+    public MisSellingCategory()
     {
         Calls = new HashSet<Call>();
     }
@@ -16,3 +19,4 @@ public partial class FinancialService
 
     public virtual ICollection<Call> Calls { get; set; }
 }
+

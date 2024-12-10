@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SupTechHackathon2024.EFCore.Models
 {
-    public partial class Cbecustomer
+    public partial class CbeCustomer
     {
-        public Cbecustomer()
+        public CbeCustomer()
         {
             Calls = new HashSet<Call>();
             CustomerAddresses = new HashSet<CustomerAddress>();

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using SupTechHackathon2024.EFCore.Models;
 
 namespace SupTechHackathon2024.EFCore
@@ -21,7 +24,7 @@ namespace SupTechHackathon2024.EFCore
         public virtual DbSet<Bank> Banks { get; set; } = null!;
         public virtual DbSet<BankBranch> BankBranches { get; set; } = null!;
         public virtual DbSet<Call> Calls { get; set; } = null!;
-        public virtual DbSet<Cbecustomer> Cbecustomers { get; set; } = null!;
+        public virtual DbSet<CbeCustomer> CbeCustomers { get; set; } = null!;
         public virtual DbSet<Currency> Currencies { get; set; } = null!;
         public virtual DbSet<CustomerAddress> CustomerAddresses { get; set; } = null!;
         public virtual DbSet<CustomerCreditBureauReportingYearlyHistory> CustomerCreditBureauReportingYearlyHistories { get; set; } = null!;
@@ -30,6 +33,7 @@ namespace SupTechHackathon2024.EFCore
         public virtual DbSet<EducationLevel> EducationLevels { get; set; } = null!;
         public virtual DbSet<EmploymentStatus> EmploymentStatuses { get; set; } = null!;
         public virtual DbSet<FinancialService> FinancialServices { get; set; } = null!;
+        public virtual DbSet<MisSellingCategory> MisSellingCategories { get; set; } = null!;
         public virtual DbSet<MaritalStatus> MaritalStatuses { get; set; } = null!;
         public virtual DbSet<OfficialIdDocumentType> OfficialIdDocumentTypes { get; set; } = null!;
         public virtual DbSet<Person> People { get; set; } = null!;
@@ -40,11 +44,6 @@ namespace SupTechHackathon2024.EFCore
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=CBE;User Id=sa;Password=Dev@123456;Persist Security Info=true;");
-//            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -81,43 +80,31 @@ namespace SupTechHackathon2024.EFCore
                     .WithMany(p => p.BankBranches)
                     .HasForeignKey(d => d.BankId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BankBranc__BankI__5812160E");
+                    .HasConstraintName("FK_BankBranch_BankId");
             });
 
             modelBuilder.Entity<Call>(entity =>
             {
                 entity.ToTable("Call");
 
-                entity.HasIndex(e => e.AgentId, "idx_Call_AgentId");
-
                 entity.HasIndex(e => e.BankId, "idx_Call_BankId");
 
-                entity.HasIndex(e => e.BranchId, "idx_Call_BranchId");
+                entity.HasIndex(e => e.BankBranchId, "idx_Call_BranchId");
 
-                entity.HasIndex(e => e.FinancialProductId, "idx_Call_FinancialProductId");
+                entity.HasIndex(e => e.FinancialServiceId, "idx_Call_FinancialServiceId");
 
-                entity.HasIndex(e => e.IsAianalysisFailed, "idx_Call_IsAIAnalysisFailed");
+                entity.HasIndex(e => e.MisSellingCategoryId, "idx_Call_MisSellingCategoryId");
+
+                entity.HasIndex(e => e.IsAiAnalysisFailed, "idx_Call_IsAIAnalysisFailed");
 
                 entity.HasIndex(e => e.IsMisSellingDetected, "idx_Call_IsMisSellingDetected");
 
-                entity.Property(e => e.AgentId).HasMaxLength(50);
-
-                entity.Property(e => e.AgentName).HasMaxLength(500);
-
-                entity.Property(e => e.CbecustomerId)
+                entity.Property(e => e.CbeCustomerId)
                     .HasMaxLength(12)
                     .IsUnicode(false)
-                    .HasColumnName("CBECustomerId");
+                    .HasColumnName("CbeCustomerId");
 
-                entity.Property(e => e.CustomerSatisfaction).HasMaxLength(20);
-
-                entity.Property(e => e.GuidlinesForCustomer).HasMaxLength(500);
-
-                entity.Property(e => e.IsAianalysisFailed).HasColumnName("IsAIAnalysisFailed");
-
-                entity.Property(e => e.MisSellingDescription).HasMaxLength(500);
-
-                entity.Property(e => e.RecommendedActionForBankOrRegulator).HasMaxLength(500);
+                entity.Property(e => e.IsAiAnalysisFailed).HasColumnName("IsAiAnalysisFailed");
 
                 entity.Property(e => e.Transcript).HasColumnType("ntext");
 
@@ -125,39 +112,44 @@ namespace SupTechHackathon2024.EFCore
                     .WithMany(p => p.Calls)
                     .HasForeignKey(d => d.BankId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Call__BankId__5DCAEF64");
+                    .HasConstraintName("FK_Call_BankId");
 
                 entity.HasOne(d => d.Branch)
                     .WithMany(p => p.Calls)
-                    .HasForeignKey(d => d.BranchId)
+                    .HasForeignKey(d => d.BankBranchId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Call__BranchId__5EBF139D");
+                    .HasConstraintName("FK_Call_BankBranchId");
 
-                entity.HasOne(d => d.Cbecustomer)
+                entity.HasOne(d => d.CbeCustomer)
                     .WithMany(p => p.Calls)
-                    .HasForeignKey(d => d.CbecustomerId)
+                    .HasForeignKey(d => d.CbeCustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Call__CBECustome__5CD6CB2B");
+                    .HasConstraintName("FK_Call_CbeCustomerId");
 
-                entity.HasOne(d => d.FinancialProduct)
+                entity.HasOne(d => d.FinancialService)
                     .WithMany(p => p.Calls)
-                    .HasForeignKey(d => d.FinancialProductId)
-                    .HasConstraintName("FK__Call__FinancialP__5FB337D6");
+                    .HasForeignKey(d => d.FinancialServiceId)
+                    .HasConstraintName("FK_Call_FinancialServiceId");
+
+                entity.HasOne(d => d.MisSellingCategory)
+                    .WithMany(p => p.Calls)
+                    .HasForeignKey(d => d.MisSellingCategoryId)
+                    .HasConstraintName("FK_Call_MisSellingCategoryId");
             });
 
-            modelBuilder.Entity<Cbecustomer>(entity =>
+            modelBuilder.Entity<CbeCustomer>(entity =>
             {
-                entity.ToTable("CBECustomer");
+                entity.ToTable("CbeCustomer");
 
-                entity.HasIndex(e => e.CustomerTypeId, "idx_CBECustomer_CustomerTypeId");
+                entity.HasIndex(e => e.CustomerTypeId, "idx_CbeCustomer_CustomerTypeId");
 
-                entity.HasIndex(e => e.LatestCreditBureauReportingDate, "idx_CBECustomer_LatestCreditBureauReportingDate");
+                entity.HasIndex(e => e.LatestCreditBureauReportingDate, "idx_CbeCustomer_LatestCreditBureauReportingDate");
 
-                entity.HasIndex(e => e.LatestCreditBureauScore, "idx_CBECustomer_LatestCreditBureauScore");
+                entity.HasIndex(e => e.LatestCreditBureauScore, "idx_CbeCustomer_LatestCreditBureauScore");
 
-                entity.HasIndex(e => e.PersonId, "idx_CBECustomer_PersonId");
+                entity.HasIndex(e => e.PersonId, "idx_CbeCustomer_PersonId");
 
-                entity.HasIndex(e => e.SmeId, "idx_CBECustomer_SmeId");
+                entity.HasIndex(e => e.SmeId, "idx_CbeCustomer_SmeId");
 
                 entity.Property(e => e.Id)
                     .HasMaxLength(12)
@@ -166,20 +158,20 @@ namespace SupTechHackathon2024.EFCore
                 entity.Property(e => e.LatestCreditBureauReportingDate).HasColumnType("date");
 
                 entity.HasOne(d => d.CustomerType)
-                    .WithMany(p => p.Cbecustomers)
+                    .WithMany(p => p.CbeCustomers)
                     .HasForeignKey(d => d.CustomerTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CBECustom__Custo__398D8EEE");
+                    .HasConstraintName("FK_CbeCustomer_CustomerTypeId");
 
                 entity.HasOne(d => d.Person)
-                    .WithMany(p => p.Cbecustomers)
+                    .WithMany(p => p.CbeCustomers)
                     .HasForeignKey(d => d.PersonId)
-                    .HasConstraintName("FK__CBECustom__Perso__3A81B327");
+                    .HasConstraintName("FK_CbeCustomer_PersonId");
 
                 entity.HasOne(d => d.Sme)
-                    .WithMany(p => p.Cbecustomers)
+                    .WithMany(p => p.CbeCustomers)
                     .HasForeignKey(d => d.SmeId)
-                    .HasConstraintName("FK__CBECustom__SmeId__3B75D760");
+                    .HasConstraintName("FK_CbeCustomer_SmeId");
             });
 
             modelBuilder.Entity<Currency>(entity =>
@@ -197,14 +189,14 @@ namespace SupTechHackathon2024.EFCore
             {
                 entity.ToTable("CustomerAddress");
 
-                entity.HasIndex(e => e.CbecustomerId, "idx_CustomerAddress_CBECustomerId");
+                entity.HasIndex(e => e.CbeCustomerId, "idx_CustomerAddress_CbeCustomerId");
 
                 entity.HasIndex(e => e.TypeId, "idx_CustomerAddress_TypeId");
 
-                entity.Property(e => e.CbecustomerId)
+                entity.Property(e => e.CbeCustomerId)
                     .HasMaxLength(12)
                     .IsUnicode(false)
-                    .HasColumnName("CBECustomerId");
+                    .HasColumnName("CbeCustomerId");
 
                 entity.Property(e => e.City).HasMaxLength(50);
 
@@ -220,67 +212,67 @@ namespace SupTechHackathon2024.EFCore
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.Cbecustomer)
+                entity.HasOne(d => d.CbeCustomer)
                     .WithMany(p => p.CustomerAddresses)
-                    .HasForeignKey(d => d.CbecustomerId)
+                    .HasForeignKey(d => d.CbeCustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CustomerA__CBECu__5441852A");
+                    .HasConstraintName("FK_CustomerAddress_CbeCustomerId");
 
                 entity.HasOne(d => d.Type)
                     .WithMany(p => p.CustomerAddresses)
                     .HasForeignKey(d => d.TypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CustomerA__TypeI__5535A963");
+                    .HasConstraintName("FK_CustomerAddress_TypeId");
             });
 
             modelBuilder.Entity<CustomerCreditBureauReportingYearlyHistory>(entity =>
             {
-                entity.HasKey(e => new { e.CbecustomerId, e.Year })
-                    .HasName("PK__Customer__37B96D868FD0B3BB");
+                entity.HasKey(e => new { e.CbeCustomerId, e.Year })
+                    .HasName("PK_CustomerCreditBureauReportingYearlyHistory");
 
                 entity.ToTable("CustomerCreditBureauReportingYearlyHistory");
 
-                entity.HasIndex(e => e.CbecustomerId, "idx_CustomerCreditBureauReportingYearlyHistory_CBECustomerId");
+                entity.HasIndex(e => e.CbeCustomerId, "idx_CustomerCreditBureauReportingYearlyHistory_CbeCustomerId");
 
                 entity.HasIndex(e => e.Score, "idx_CustomerCreditBureauReportingYearlyHistory_Score");
 
-                entity.Property(e => e.CbecustomerId)
+                entity.Property(e => e.CbeCustomerId)
                     .HasMaxLength(12)
                     .IsUnicode(false)
-                    .HasColumnName("CBECustomerId");
+                    .HasColumnName("CbeCustomerId");
 
-                entity.HasOne(d => d.Cbecustomer)
+                entity.HasOne(d => d.CbeCustomer)
                     .WithMany(p => p.CustomerCreditBureauReportingYearlyHistories)
-                    .HasForeignKey(d => d.CbecustomerId)
+                    .HasForeignKey(d => d.CbeCustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CustomerC__CBECu__440B1D61");
+                    .HasConstraintName("FK_CustomerCreditBureauReportingYearlyHistory_CbeCustomerId");
             });
 
             modelBuilder.Entity<CustomerRiskRateYearlyHistory>(entity =>
             {
-                entity.HasKey(e => new { e.CbecustomerId, e.BankId, e.Year })
-                    .HasName("PK__Customer__04868A5233C20CF8");
+                entity.HasKey(e => new { e.CbeCustomerId, e.BankId, e.Year })
+                    .HasName("PK_CustomerRiskRateYearlyHistory");
 
                 entity.ToTable("CustomerRiskRateYearlyHistory");
 
-                entity.HasIndex(e => e.CbecustomerId, "idx_CustomerRiskRateYearlyHistory_CBECustomerId");
+                entity.HasIndex(e => e.CbeCustomerId, "idx_CustomerRiskRateYearlyHistory_CbeCustomerId");
 
-                entity.Property(e => e.CbecustomerId)
+                entity.Property(e => e.CbeCustomerId)
                     .HasMaxLength(12)
                     .IsUnicode(false)
-                    .HasColumnName("CBECustomerId");
+                    .HasColumnName("CbeCustomerId");
 
                 entity.HasOne(d => d.Bank)
                     .WithMany(p => p.CustomerRiskRateYearlyHistories)
                     .HasForeignKey(d => d.BankId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CustomerR__BankI__412EB0B6");
+                    .HasConstraintName("FK_CustomerRiskRateYearlyHistory_BankId");
 
-                entity.HasOne(d => d.Cbecustomer)
+                entity.HasOne(d => d.CbeCustomer)
                     .WithMany(p => p.CustomerRiskRateYearlyHistories)
-                    .HasForeignKey(d => d.CbecustomerId)
+                    .HasForeignKey(d => d.CbeCustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CustomerR__CBECu__403A8C7D");
+                    .HasConstraintName("FK_CustomerRiskRateYearlyHistory_CbeCustomerId");
             });
 
             modelBuilder.Entity<CustomerType>(entity =>
@@ -327,6 +319,17 @@ namespace SupTechHackathon2024.EFCore
                 entity.Property(e => e.NameEn).HasMaxLength(200);
             });
 
+            modelBuilder.Entity<MisSellingCategory>(entity =>
+            {
+                entity.ToTable("MisSellingCategory");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.NameAr).HasMaxLength(200);
+
+                entity.Property(e => e.NameEn).HasMaxLength(200);
+            });
+
             modelBuilder.Entity<MaritalStatus>(entity =>
             {
                 entity.ToTable("MaritalStatus");
@@ -353,7 +356,7 @@ namespace SupTechHackathon2024.EFCore
             {
                 entity.ToTable("Person");
 
-                entity.HasIndex(e => new { e.IdDocumentNumber, e.OfficialIdDocumentTypeId }, "UQ__Person__6766F5EFE72AE447")
+                entity.HasIndex(e => new { e.IdDocumentNumber, e.OfficialIdDocumentTypeId }, "UQ_Person")
                     .IsUnique();
 
                 entity.HasIndex(e => e.EducationLevelId, "idx_Person_EducationLevelId");
@@ -390,44 +393,44 @@ namespace SupTechHackathon2024.EFCore
                 entity.HasOne(d => d.EducationLevel)
                     .WithMany(p => p.People)
                     .HasForeignKey(d => d.EducationLevelId)
-                    .HasConstraintName("FK__Person__Educatio__300424B4");
+                    .HasConstraintName("FK_Person_EducationLevelId");
 
                 entity.HasOne(d => d.EmploymentStatus)
                     .WithMany(p => p.People)
                     .HasForeignKey(d => d.EmploymentStatusId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Person__Employme__2E1BDC42");
+                    .HasConstraintName("FK_Person_EmploymentStatusId");
 
                 entity.HasOne(d => d.MaritalStatus)
                     .WithMany(p => p.People)
                     .HasForeignKey(d => d.MaritalStatusId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Person__MaritalS__2D27B809");
+                    .HasConstraintName("FK_Person_MaritalStatusId");
 
                 entity.HasOne(d => d.OfficialIdDocumentType)
                     .WithMany(p => p.People)
                     .HasForeignKey(d => d.OfficialIdDocumentTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Person__Official__2F10007B");
+                    .HasConstraintName("FK_Person_OfficialIdDocumentTypeId");
             });
 
             modelBuilder.Entity<RetailAnnualIncome>(entity =>
             {
-                entity.HasKey(e => new { e.CbecustomerId, e.BankId, e.Year, e.CurrencyId })
-                    .HasName("PK__RetailAn__AB97CE22E0BF26F0");
+                entity.HasKey(e => new { e.CbeCustomerId, e.BankId, e.Year, e.CurrencyId })
+                    .HasName("PK_RetailAnnualIncome");
 
                 entity.ToTable("RetailAnnualIncome");
 
                 entity.HasIndex(e => e.BankId, "idx_RetailAnnualIncome_BankId");
 
-                entity.HasIndex(e => e.CbecustomerId, "idx_RetailAnnualIncome_CBECustomerId");
+                entity.HasIndex(e => e.CbeCustomerId, "idx_RetailAnnualIncome_CbeCustomerId");
 
                 entity.HasIndex(e => e.CurrencyId, "idx_RetailAnnualIncome_CurrencyId");
 
-                entity.Property(e => e.CbecustomerId)
+                entity.Property(e => e.CbeCustomerId)
                     .HasMaxLength(12)
                     .IsUnicode(false)
-                    .HasColumnName("CBECustomerId");
+                    .HasColumnName("CbeCustomerId");
 
                 entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
 
@@ -435,19 +438,19 @@ namespace SupTechHackathon2024.EFCore
                     .WithMany(p => p.RetailAnnualIncomes)
                     .HasForeignKey(d => d.BankId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__RetailAnn__BankI__4E88ABD4");
+                    .HasConstraintName("FK_RetailAnnualIncome_BankId");
 
-                entity.HasOne(d => d.Cbecustomer)
+                entity.HasOne(d => d.CbeCustomer)
                     .WithMany(p => p.RetailAnnualIncomes)
-                    .HasForeignKey(d => d.CbecustomerId)
+                    .HasForeignKey(d => d.CbeCustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__RetailAnn__CBECu__4D94879B");
+                    .HasConstraintName("FK_RetailAnnualIncome_CbeCustomerId");
 
                 entity.HasOne(d => d.Currency)
                     .WithMany(p => p.RetailAnnualIncomes)
                     .HasForeignKey(d => d.CurrencyId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__RetailAnn__Curre__4F7CD00D");
+                    .HasConstraintName("FK_RetailAnnualIncome_CurrencyId");
             });
 
             modelBuilder.Entity<Setting>(entity =>
@@ -477,26 +480,26 @@ namespace SupTechHackathon2024.EFCore
                     .WithMany(p => p.Smes)
                     .HasForeignKey(d => d.LegalRepresentativePersonId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Sme__LegalRepres__34C8D9D1");
+                    .HasConstraintName("FK_Sme_LegalRepresentativePersonId");
             });
 
             modelBuilder.Entity<SmeYearlyFinancialStatement>(entity =>
             {
-                entity.HasKey(e => new { e.CbecustomerId, e.BankId, e.ReportingDate })
-                    .HasName("PK__SmeYearl__D2CC7D4AAF35AD8F");
+                entity.HasKey(e => new { e.CbeCustomerId, e.BankId, e.ReportingDate })
+                    .HasName("PK_SmeYearlyFinancialStatement");
 
                 entity.ToTable("SmeYearlyFinancialStatement");
 
                 entity.HasIndex(e => e.BankId, "idx_SmeYearlyFinancialStatement_BankId");
 
-                entity.HasIndex(e => e.CbecustomerId, "idx_SmeYearlyFinancialStatement_CBECustomerId");
+                entity.HasIndex(e => e.CbeCustomerId, "idx_SmeYearlyFinancialStatement_CbeCustomerId");
 
                 entity.HasIndex(e => e.ReportingCurrencyId, "idx_SmeYearlyFinancialStatement_ReportingCurrencyId");
 
-                entity.Property(e => e.CbecustomerId)
+                entity.Property(e => e.CbeCustomerId)
                     .HasMaxLength(12)
                     .IsUnicode(false)
-                    .HasColumnName("CBECustomerId");
+                    .HasColumnName("CbeCustomerId");
 
                 entity.Property(e => e.ReportingDate).HasColumnType("date");
 
@@ -514,20 +517,105 @@ namespace SupTechHackathon2024.EFCore
                     .WithMany(p => p.SmeYearlyFinancialStatements)
                     .HasForeignKey(d => d.BankId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__SmeYearly__BankI__49C3F6B7");
+                    .HasConstraintName("FK_SmeYearlyFinancialStatement_BankId");
 
-                entity.HasOne(d => d.Cbecustomer)
+                entity.HasOne(d => d.CbeCustomer)
                     .WithMany(p => p.SmeYearlyFinancialStatements)
-                    .HasForeignKey(d => d.CbecustomerId)
+                    .HasForeignKey(d => d.CbeCustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__SmeYearly__CBECu__48CFD27E");
+                    .HasConstraintName("FK_SmeYearlyFinancialStatement_CbeCustomerId");
 
                 entity.HasOne(d => d.ReportingCurrency)
                     .WithMany(p => p.SmeYearlyFinancialStatements)
                     .HasForeignKey(d => d.ReportingCurrencyId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__SmeYearly__Repor__4AB81AF0");
+                    .HasConstraintName("FK_SmeYearlyFinancialStatement_ReportingCurrencyId");
             });
+
+            modelBuilder.Entity<AddressType>().HasData(
+                new AddressType { Id = 1, NameAr = "عنوان دائم", NameEn = "Permanent Address" },
+                new AddressType { Id = 2, NameAr = "عنوان مؤقت", NameEn = "Temporary Address" },
+                new AddressType { Id = 3, NameAr = "عنوان حالي", NameEn = "Current Address" });
+
+            modelBuilder.Entity<Currency>().HasData(
+                new Currency { Id = 1, NameAr = "الجنيه المصري", NameEn = "Egyptian Pound" },
+                new Currency { Id = 2, NameAr = "الدولار الأمريكي", NameEn = "US Dollar" },
+                new Currency { Id = 3, NameAr = "اليورو", NameEn = "Euro" },
+                new Currency { Id = 4, NameAr = "الين الياباني", NameEn = "Japanese Yen" },
+                new Currency { Id = 5, NameAr = "الجنيه الإسترليني", NameEn = "British Pound" },
+                new Currency { Id = 6, NameAr = "الريال السعودي", NameEn = "Saudi Riyal" },
+                new Currency { Id = 7, NameAr = "الدرهم الإماراتي", NameEn = "UAE Dirham" },
+                new Currency { Id = 8, NameAr = "الدينار الكويتي", NameEn = "Kuwaiti Dinar" },
+                new Currency { Id = 9, NameAr = "الروبية الهندية", NameEn = "Indian Rupee" },
+                new Currency { Id = 10, NameAr = "اليوان الصيني", NameEn = "Chinese Yuan" }
+            );
+
+            modelBuilder.Entity<CustomerType>().HasData(
+                new CustomerType { Id = 1, NameAr = "أفراد", NameEn="Retail"},
+                new CustomerType { Id = 2, NameAr = "شركات صغيرة ومتوسطة", NameEn="SMEs" });
+
+            modelBuilder.Entity<EducationLevel>().HasData(
+                new EducationLevel { Id = 1, NameAr = "بدون مؤهل (غير متعلم وحتى الإعدادية)", NameEn = "Illiterate to Preparatory School" },
+                new EducationLevel { Id = 2, NameAr = "مؤهل متوسط", NameEn = "High School" },
+                new EducationLevel { Id = 3, NameAr = "مؤهل عالي", NameEn = "University or Postgraduate Degree" });
+
+            modelBuilder.Entity<EmploymentStatus>().HasData(
+                new EmploymentStatus { Id = 1, NameAr = "لا يعمل", NameEn = "Unemployed" },
+                new EmploymentStatus { Id = 2, NameAr = "عمل بدخل ثابت", NameEn = "Fixed Income Job" },
+                new EmploymentStatus { Id = 3, NameAr = "عمل حر", NameEn = "Self-Employed" }
+            );
+
+            modelBuilder.Entity<MaritalStatus>().HasData(
+                new MaritalStatus { Id = 1, NameAr = "أعزب", NameEn = "Single" },
+                new MaritalStatus { Id = 2, NameAr = "متزوج ولا يعول", NameEn = "Married without Dependents" },
+                new MaritalStatus { Id = 3, NameAr = "متزوج ويعول", NameEn = "Married with Dependents" }
+            );
+
+            modelBuilder.Entity<OfficialIdDocumentType>().HasData(
+                new OfficialIdDocumentType { Id = 1, NameAr = "بطاقة رقم قومي", NameEn="National Id Card"},
+                new OfficialIdDocumentType { Id = 2, NameAr = "جواز سفر", NameEn="Passport" },
+                new OfficialIdDocumentType { Id = 3, NameAr = "سجل تجاري", NameEn="Business Registeration Document" },
+                new OfficialIdDocumentType { Id = 4, NameAr = "بطاقة ضريبية", NameEn="Tax Identification Document" });
+
+            modelBuilder.Entity<FinancialService>().HasData(
+                new FinancialService { Id = 1, NameAr = "بطاقة ائتمان", NameEn = "Credit Card" },
+                new FinancialService { Id = 2, NameAr = "قرض شخصي", NameEn = "Personal Loan" },
+                new FinancialService { Id = 3, NameAr = "حساب توفير", NameEn = "Savings Account" },
+                new FinancialService { Id = 4, NameAr = "خدمات التأمين", NameEn = "Insurance Services" },
+                new FinancialService { Id = 5, NameAr = "قرض عقاري", NameEn = "Mortgage Loan" },
+                new FinancialService { Id = 6, NameAr = "استثمار في الصناديق المشتركة", NameEn = "Mutual Fund Investment" },
+                new FinancialService { Id = 7, NameAr = "حساب جاري", NameEn = "Current Account" },
+                new FinancialService { Id = 8, NameAr = "قرض سيارة", NameEn = "Auto Loan" },
+                new FinancialService { Id = 9, NameAr = "بطاقة مسبقة الدفع", NameEn = "Prepaid Card" },
+                new FinancialService { Id = 10, NameAr = "تأمين على الممتلكات", NameEn = "Property Insurance" },
+                new FinancialService { Id = 11, NameAr = "حساب استثماري", NameEn = "Investment Account" },
+                new FinancialService { Id = 12, NameAr = "قرض تجاري", NameEn = "Business Loan" },
+                new FinancialService { Id = 13, NameAr = "خدمات تحويل الأموال", NameEn = "Money Transfer Services" },
+                new FinancialService { Id = 14, NameAr = "قرض تعليمي", NameEn = "Education Loan" },
+                new FinancialService { Id = 15, NameAr = "خدمات إدارة الثروات", NameEn = "Wealth Management Services" },
+                new FinancialService { Id = 16, NameAr = "خدمات التقاعد", NameEn = "Retirement Services" });
+
+            modelBuilder.Entity<MisSellingCategory>().HasData(
+                new MisSellingCategory { Id = 1, NameAr = "بيع منتجات غير مناسبة", NameEn = "Sale of Unsuitable Products" },
+                new MisSellingCategory { Id = 2, NameAr = "إخفاء معلومات هامة", NameEn = "Omission of Key Information" },
+                new MisSellingCategory { Id = 3, NameAr = "تقديم نصائح مضللة", NameEn = "Providing Misleading Advice" },
+                new MisSellingCategory { Id = 4, NameAr = "ضغط مبيعات عالي", NameEn = "High-Pressure Sales Tactics" },
+                new MisSellingCategory { Id = 5, NameAr = "عدم الإفصاح عن الرسوم", NameEn = "Failure to Disclose Fees" },
+                new MisSellingCategory { Id = 6, NameAr = "تقديم وعود غير واقعية", NameEn = "Making Unrealistic Promises" },
+                new MisSellingCategory { Id = 7, NameAr = "بيع منتجات غير مفهومة", NameEn = "Sale of Complex Products without Explanation" },
+                new MisSellingCategory { Id = 8, NameAr = "تضليل حول المخاطر", NameEn = "Misrepresentation of Risks" },
+                new MisSellingCategory { Id = 9, NameAr = "تضليل حول العوائد", NameEn = "Misrepresentation of Returns" },
+                new MisSellingCategory { Id = 10, NameAr = "تضليل حول الشروط والأحكام", NameEn = "Misrepresentation of Terms and Conditions" },
+                new MisSellingCategory { Id = 11, NameAr = "تضليل حول الأهلية", NameEn = "Misrepresentation of Eligibility" },
+                new MisSellingCategory { Id = 12, NameAr = "بيع منتجات غير مرخصة", NameEn = "Sale of Unlicensed Products" },
+                new MisSellingCategory { Id = 13, NameAr = "تضليل حول الفوائد", NameEn = "Misrepresentation of Benefits" },
+                new MisSellingCategory { Id = 14, NameAr = "تضليل حول التكاليف", NameEn = "Misrepresentation of Costs" },
+                new MisSellingCategory { Id = 15, NameAr = "تضليل حول الأداء السابق", NameEn = "Misrepresentation of Past Performance" },
+                new MisSellingCategory { Id = 16, NameAr = "تضليل حول السيولة", NameEn = "Misrepresentation of Liquidity" },
+                new MisSellingCategory { Id = 17, NameAr = "تضليل حول الضمانات", NameEn = "Misrepresentation of Guarantees" },
+                new MisSellingCategory { Id = 18, NameAr = "تضليل حول التأمين", NameEn = "Misrepresentation of Insurance Coverage" },
+                new MisSellingCategory { Id = 19, NameAr = "تضليل حول الاستثمارات", NameEn = "Misrepresentation of Investment Strategies" },
+                new MisSellingCategory { Id = 20, NameAr = "تضليل حول الأصول", NameEn = "Misrepresentation of Asset Allocation" });
 
             OnModelCreatingPartial(modelBuilder);
         }
