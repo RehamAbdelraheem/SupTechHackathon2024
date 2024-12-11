@@ -65,7 +65,9 @@ namespace SupTechHackathon2024.EFCore
             {
                 entity.ToTable("Bank");
 
-                entity.Property(e => e.Name).HasMaxLength(200);
+                entity.Property(e => e.NameAr).HasMaxLength(200);
+
+                entity.Property(e => e.NameEn).HasMaxLength(200);
             });
 
             modelBuilder.Entity<BankBranch>(entity =>
@@ -74,7 +76,9 @@ namespace SupTechHackathon2024.EFCore
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.Name).HasMaxLength(200);
+                entity.Property(e => e.NameAr).HasMaxLength(200);
+
+                entity.Property(e => e.NameEn).HasMaxLength(200);
 
                 entity.HasOne(d => d.Bank)
                     .WithMany(p => p.BankBranches)
@@ -616,6 +620,570 @@ namespace SupTechHackathon2024.EFCore
                 new MisSellingCategory { Id = 18, NameAr = "تضليل حول التأمين", NameEn = "Misrepresentation of Insurance Coverage" },
                 new MisSellingCategory { Id = 19, NameAr = "تضليل حول الاستثمارات", NameEn = "Misrepresentation of Investment Strategies" },
                 new MisSellingCategory { Id = 20, NameAr = "تضليل حول الأصول", NameEn = "Misrepresentation of Asset Allocation" });
+            
+            modelBuilder.Entity<Bank>().HasData(
+                new Bank { Id = 1, NameAr = "البنك الأهلي المصري", NameEn = "National Bank of Egypt" },
+                new Bank { Id = 2, NameAr = "بنك مصر", NameEn = "Banque Misr" },
+                new Bank { Id = 3, NameAr = "بنك القاهرة", NameEn = "Banque du Caire" },
+                new Bank { Id = 4, NameAr = "البنك التجاري الدولي", NameEn = "Commercial International Bank" },
+                new Bank { Id = 5, NameAr = "بنك الإسكندرية", NameEn = "Bank of Alexandria" },
+                new Bank { Id = 6, NameAr = "بنك قناة السويس", NameEn = "Suez Canal Bank" },
+                new Bank { Id = 7, NameAr = "البنك العربي الأفريقي الدولي", NameEn = "Arab African International Bank" },
+                new Bank { Id = 8, NameAr = "بنك قطر الوطني الأهلي", NameEn = "Qatar National Bank Alahli" });
+
+            modelBuilder.Entity<BankBranch>().HasData(
+                new BankBranch { Id = 1, NameAr = "فرع القاهرة", NameEn = "Cairo Branch", BankId = 1 },
+                new BankBranch { Id = 2, NameAr = "فرع الإسكندرية", NameEn = "Alexandria Branch", BankId = 1 },
+                new BankBranch { Id = 3, NameAr = "فرع الجيزة", NameEn = "Giza Branch", BankId = 2 },
+                new BankBranch { Id = 4, NameAr = "فرع المنصورة", NameEn = "Mansoura Branch", BankId = 2 },
+                new BankBranch { Id = 5, NameAr = "فرع أسيوط", NameEn = "Asyut Branch", BankId = 3 },
+                new BankBranch { Id = 6, NameAr = "فرع سوهاج", NameEn = "Sohag Branch", BankId = 3 },
+                new BankBranch { Id = 7, NameAr = "فرع الأقصر", NameEn = "Luxor Branch", BankId = 4 },
+                new BankBranch { Id = 8, NameAr = "فرع أسوان", NameEn = "Aswan Branch", BankId = 4 },
+                new BankBranch { Id = 9, NameAr = "فرع بورسعيد", NameEn = "Port Said Branch", BankId = 5 },
+                new BankBranch { Id = 10, NameAr = "فرع الإسماعيلية", NameEn = "Ismailia Branch", BankId = 6 },
+                new BankBranch { Id = 11, NameAr = "فرع السويس", NameEn = "Suez Branch", BankId = 6 },
+                new BankBranch { Id = 12, NameAr = "فرع المعادي", NameEn = "Maadi Branch", BankId = 7 },
+                new BankBranch { Id = 13, NameAr = "فرع مدينة نصر", NameEn = "Nasr City Branch", BankId = 8 }
+            );
+
+            //Test Data Starts Here
+            modelBuilder.Entity<Person>().HasData(
+                new Person
+                {
+                    Id = 1,
+                    FullName = "Ahmed Ali",
+                    Gender = "M",
+                    Birthdate = new DateTime(1985, 5, 20),
+                    IdDocumentNumber = "28505201234567",
+                    OfficialIdDocumentTypeId = 1,
+                    EducationLevelId = 3,
+                    EmploymentStatusId = 2,
+                    MaritalStatusId = 3,
+                    PhoneNumber = "01012345678",
+                    Email = "ahmed.ali@example.com",
+                    Occupation = "Software Engineer"
+                },
+                new Person
+                {
+                    Id = 2,
+                    FullName = "Sara Mohamed",
+                    Gender = "F",
+                    Birthdate = new DateTime(1990, 8, 15),
+                    IdDocumentNumber = "29008159876543",
+                    OfficialIdDocumentTypeId = 1,
+                    EducationLevelId = 2,
+                    EmploymentStatusId = 1,
+                    MaritalStatusId = 1,
+                    PhoneNumber = "01234567890",
+                    Email = "sara.mohamed@example.com",
+                    Occupation = "Teacher"
+                }
+            );
+
+            modelBuilder.Entity<Sme>().HasData(
+                new Sme
+                {
+                    Id = 1,
+                    Name = "Tech Solutions",
+                    BusinessRegisterIdNumber = "BR1234567890",
+                    TaxIdNumber = "581-945-545",
+                    IndustrySector = "Information Technology",
+                    LegalRepresentativePersonId = 1
+                },
+                new Sme
+                {
+                    Id = 2,
+                    Name = "Green Farms",
+                    BusinessRegisterIdNumber = "BR0987654321",
+                    TaxIdNumber = "581-945-535",
+                    IndustrySector = "Agriculture",
+                    LegalRepresentativePersonId = 2
+                }
+            );
+
+            modelBuilder.Entity<CbeCustomer>().HasData(
+                new CbeCustomer
+                {
+                    Id = "000010649254",
+                    CustomerTypeId = 1,
+                    LatestCreditBureauReportingDate = new DateTime(2024, 1, 15),
+                    LatestCreditBureauScore = 560,
+                    PersonId = 1,
+                    SmeId = null
+                },
+                new CbeCustomer
+                {
+                    Id = "000010649255",
+                    CustomerTypeId = 1,
+                    LatestCreditBureauReportingDate = new DateTime(2024, 2, 20),
+                    LatestCreditBureauScore = 760,
+                    PersonId = 2,
+                    SmeId = null
+                },
+                new CbeCustomer
+                {
+                    Id = "000010649257",
+                    CustomerTypeId = 2,
+                    LatestCreditBureauReportingDate = new DateTime(2024, 3, 10),
+                    LatestCreditBureauScore = 560,
+                    PersonId = null,
+                    SmeId = 1
+                },
+                new CbeCustomer
+                {
+                    Id = "000010649258",
+                    CustomerTypeId = 2,
+                    LatestCreditBureauReportingDate = new DateTime(2024, 4, 5),
+                    LatestCreditBureauScore = 790,
+                    PersonId = null,
+                    SmeId = 2
+                }
+            );
+
+            modelBuilder.Entity<CustomerRiskRateYearlyHistory>().HasData(
+                // Good SME "000010649258"
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649258", BankId = 3, Year = 2020, Rate = 2 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649258", BankId = 3, Year = 2021, Rate = 2 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649258", BankId = 3, Year = 2022, Rate = 2 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649258", BankId = 3, Year = 2023, Rate = 2 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649258", BankId = 3, Year = 2024, Rate = 2 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649258", BankId = 4, Year = 2020, Rate = 3 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649258", BankId = 4, Year = 2021, Rate = 3 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649258", BankId = 4, Year = 2022, Rate = 3 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649258", BankId = 4, Year = 2023, Rate = 3 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649258", BankId = 4, Year = 2024, Rate = 3 },
+
+                // Bad SME "000010649257"
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649257", BankId = 3, Year = 2020, Rate = 8 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649257", BankId = 3, Year = 2021, Rate = 8 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649257", BankId = 3, Year = 2022, Rate = 8 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649257", BankId = 3, Year = 2023, Rate = 8 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649257", BankId = 3, Year = 2024, Rate = 8 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649257", BankId = 4, Year = 2020, Rate = 7 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649257", BankId = 4, Year = 2021, Rate = 7 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649257", BankId = 4, Year = 2022, Rate = 7 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649257", BankId = 4, Year = 2023, Rate = 7 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649257", BankId = 4, Year = 2024, Rate = 7 },
+
+                // Good Individual "000010649255"
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649255", BankId = 1, Year = 2020, Rate = 2 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649255", BankId = 1, Year = 2021, Rate = 2 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649255", BankId = 1, Year = 2022, Rate = 2 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649255", BankId = 1, Year = 2023, Rate = 2 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649255", BankId = 1, Year = 2024, Rate = 2 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649255", BankId = 2, Year = 2020, Rate = 3 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649255", BankId = 2, Year = 2021, Rate = 3 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649255", BankId = 2, Year = 2022, Rate = 3 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649255", BankId = 2, Year = 2023, Rate = 3 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649255", BankId = 2, Year = 2024, Rate = 3 },
+
+                // Bad Individual "000010649254"
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649254", BankId = 1, Year = 2020, Rate = 8 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649254", BankId = 1, Year = 2021, Rate = 8 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649254", BankId = 1, Year = 2022, Rate = 8 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649254", BankId = 1, Year = 2023, Rate = 8 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649254", BankId = 1, Year = 2024, Rate = 8 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649254", BankId = 2, Year = 2020, Rate = 7 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649254", BankId = 2, Year = 2021, Rate = 7 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649254", BankId = 2, Year = 2022, Rate = 7 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649254", BankId = 2, Year = 2023, Rate = 7 },
+                new CustomerRiskRateYearlyHistory { CbeCustomerId = "000010649254", BankId = 2, Year = 2024, Rate = 7 }
+            );
+
+            modelBuilder.Entity<CustomerCreditBureauReportingYearlyHistory>().HasData(
+                // Good SME "000010649258"
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649258", Year = 2020, Score = 750 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649258", Year = 2021, Score = 760 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649258", Year = 2022, Score = 770 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649258", Year = 2023, Score = 780 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649258", Year = 2024, Score = 790 },
+
+                // Bad SME "000010649257"
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649257", Year = 2020, Score = 600 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649257", Year = 2021, Score = 590 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649257", Year = 2022, Score = 580 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649257", Year = 2023, Score = 570 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649257", Year = 2024, Score = 560 },
+
+                // Good Individual "000010649255"
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649255", Year = 2020, Score = 730 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649255", Year = 2021, Score = 730 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649255", Year = 2022, Score = 740 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649255", Year = 2023, Score = 750 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649255", Year = 2024, Score = 760 },
+
+                // Bad Individual "000010649254"
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649254", Year = 2020, Score = 600 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649254", Year = 2021, Score = 590 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649254", Year = 2022, Score = 580 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649254", Year = 2023, Score = 570 },
+                new CustomerCreditBureauReportingYearlyHistory { CbeCustomerId = "000010649254", Year = 2024, Score = 560 }
+            );
+
+            modelBuilder.Entity<SmeYearlyFinancialStatement>().HasData(
+                // Good SME "000010649258"
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649258",
+                    BankId = 3,
+                    ReportingDate = new DateTime(2020, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 500000.00m,
+                    Profit = 100000.00m,
+                    TotalAssets = 700000.00m,
+                    TotalEquity = 300000.00m,
+                    TotalLiabilities = 400000.00m
+                },
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649258",
+                    BankId = 3,
+                    ReportingDate = new DateTime(2021, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 550000.00m,
+                    Profit = 110000.00m,
+                    TotalAssets = 750000.00m,
+                    TotalEquity = 350000.00m,
+                    TotalLiabilities = 400000.00m
+                },
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649258",
+                    BankId = 3,
+                    ReportingDate = new DateTime(2022, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 600000.00m,
+                    Profit = 120000.00m,
+                    TotalAssets = 800000.00m,
+                    TotalEquity = 400000.00m,
+                    TotalLiabilities = 400000.00m
+                },
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649258",
+                    BankId = 3,
+                    ReportingDate = new DateTime(2023, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 650000.00m,
+                    Profit = 130000.00m,
+                    TotalAssets = 850000.00m,
+                    TotalEquity = 450000.00m,
+                    TotalLiabilities = 400000.00m
+                },
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649258",
+                    BankId = 3,
+                    ReportingDate = new DateTime(2024, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 700000.00m,
+                    Profit = 140000.00m,
+                    TotalAssets = 900000.00m,
+                    TotalEquity = 500000.00m,
+                    TotalLiabilities = 400000.00m
+                },
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649258",
+                    BankId = 4,
+                    ReportingDate = new DateTime(2020, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 520000.00m,
+                    Profit = 104000.00m,
+                    TotalAssets = 720000.00m,
+                    TotalEquity = 320000.00m,
+                    TotalLiabilities = 400000.00m
+                },
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649258",
+                    BankId = 4,
+                    ReportingDate = new DateTime(2021, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 570000.00m,
+                    Profit = 114000.00m,
+                    TotalAssets = 770000.00m,
+                    TotalEquity = 370000.00m,
+                    TotalLiabilities = 400000.00m
+                },
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649258",
+                    BankId = 4,
+                    ReportingDate = new DateTime(2022, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 620000.00m,
+                    Profit = 124000.00m,
+                    TotalAssets = 820000.00m,
+                    TotalEquity = 420000.00m,
+                    TotalLiabilities = 400000.00m
+                },
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649258",
+                    BankId = 4,
+                    ReportingDate = new DateTime(2023, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 670000.00m,
+                    Profit = 134000.00m,
+                    TotalAssets = 870000.00m,
+                    TotalEquity = 470000.00m,
+                    TotalLiabilities = 400000.00m
+                },
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649258",
+                    BankId = 4,
+                    ReportingDate = new DateTime(2024, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 720000.00m,
+                    Profit = 144000.00m,
+                    TotalAssets = 920000.00m,
+                    TotalEquity = 520000.00m,
+                    TotalLiabilities = 400000.00m
+                },
+
+                // Bad SME "000010649257"
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649257",
+                    BankId = 3,
+                    ReportingDate = new DateTime(2024, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 220000.00m,
+                    Profit = 0.00m,
+                    TotalAssets = 320000.00m,
+                    TotalEquity = 80000.00m,
+                    TotalLiabilities = 240000.00m
+                },
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649257",
+                    BankId = 4,
+                    ReportingDate = new DateTime(2020, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 310000.00m,
+                    Profit = 25000.00m,
+                    TotalAssets = 410000.00m,
+                    TotalEquity = 105000.00m,
+                    TotalLiabilities = 305000.00m
+                },
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649257",
+                    BankId = 4,
+                    ReportingDate = new DateTime(2021, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 290000.00m,
+                    Profit = 20000.00m,
+                    TotalAssets = 390000.00m,
+                    TotalEquity = 100000.00m,
+                    TotalLiabilities = 290000.00m
+                },
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649257",
+                    BankId = 4,
+                    ReportingDate = new DateTime(2022, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 270000.00m,
+                    Profit = 15000.00m,
+                    TotalAssets = 370000.00m,
+                    TotalEquity = 95000.00m,
+                    TotalLiabilities = 275000.00m
+                },
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649257",
+                    BankId = 4,
+                    ReportingDate = new DateTime(2023, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 250000.00m,
+                    Profit = 10000.00m,
+                    TotalAssets = 350000.00m,
+                    TotalEquity = 90000.00m,
+                    TotalLiabilities = 260000.00m
+                },
+                new SmeYearlyFinancialStatement
+                {
+                    CbeCustomerId = "000010649257",
+                    BankId = 4,
+                    ReportingDate = new DateTime(2024, 12, 31),
+                    ReportingCurrencyId = 1,
+                    Revenue = 230000.00m,
+                    Profit = 5000.00m,
+                    TotalAssets = 330000.00m,
+                    TotalEquity = 85000.00m,
+                    TotalLiabilities = 245000.00m
+                }
+            );
+
+            modelBuilder.Entity<RetailAnnualIncome>().HasData(
+                // Good Individual "000010649255"
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649255",
+                    BankId = 1,
+                    Year = 2020,
+                    CurrencyId = 1,
+                    Amount = 90000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649255",
+                    BankId = 1,
+                    Year = 2021,
+                    CurrencyId = 1,
+                    Amount = 95000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649255",
+                    BankId = 1,
+                    Year = 2022,
+                    CurrencyId = 1,
+                    Amount = 100000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649255",
+                    BankId = 1,
+                    Year = 2023,
+                    CurrencyId = 1,
+                    Amount = 105000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649255",
+                    BankId = 1,
+                    Year = 2024,
+                    CurrencyId = 1,
+                    Amount = 110000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649255",
+                    BankId = 2,
+                    Year = 2020,
+                    CurrencyId = 1,
+                    Amount = 92000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649255",
+                    BankId = 2,
+                    Year = 2021,
+                    CurrencyId = 1,
+                    Amount = 97000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649255",
+                    BankId = 2,
+                    Year = 2022,
+                    CurrencyId = 1,
+                    Amount = 102000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649255",
+                    BankId = 2,
+                    Year = 2023,
+                    CurrencyId = 1,
+                    Amount = 107000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649255",
+                    BankId = 2,
+                    Year = 2024,
+                    CurrencyId = 1,
+                    Amount = 112000.00m
+                },
+
+                // Bad Individual "000010649254"
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649254",
+                    BankId = 1,
+                    Year = 2020,
+                    CurrencyId = 1,
+                    Amount = 50000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649254",
+                    BankId = 1,
+                    Year = 2021,
+                    CurrencyId = 1,
+                    Amount = 48000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649254",
+                    BankId = 1,
+                    Year = 2022,
+                    CurrencyId = 1,
+                    Amount = 46000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649254",
+                    BankId = 1,
+                    Year = 2023,
+                    CurrencyId = 1,
+                    Amount = 44000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649254",
+                    BankId = 1,
+                    Year = 2024,
+                    CurrencyId = 1,
+                    Amount = 42000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649254",
+                    BankId = 2,
+                    Year = 2020,
+                    CurrencyId = 1,
+                    Amount = 52000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649254",
+                    BankId = 2,
+                    Year = 2021,
+                    CurrencyId = 1,
+                    Amount = 50000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649254",
+                    BankId = 2,
+                    Year = 2022,
+                    CurrencyId = 1,
+                    Amount = 48000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649254",
+                    BankId = 2,
+                    Year = 2023,
+                    CurrencyId = 1,
+                    Amount = 46000.00m
+                },
+                new RetailAnnualIncome
+                {
+                    CbeCustomerId = "000010649254",
+                    BankId = 2,
+                    Year = 2024,
+                    CurrencyId = 1,
+                    Amount = 44000.00m
+                }
+            );
 
             OnModelCreatingPartial(modelBuilder);
         }

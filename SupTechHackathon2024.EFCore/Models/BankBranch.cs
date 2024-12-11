@@ -11,7 +11,8 @@ namespace SupTechHackathon2024.EFCore.Models
         }
 
         public int Id { get; set; }
-        public string Name { get; set; } = null!;
+        public string NameAr { get; set; } = null!;
+        public string NameEn { get; set; } = null!;
         public int BankId { get; set; }
 
         public virtual Bank Bank { get; set; } = null!;
