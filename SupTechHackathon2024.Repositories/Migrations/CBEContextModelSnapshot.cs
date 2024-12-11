@@ -256,9 +256,11 @@ namespace SupTechHackathon2024.Repositories.Migrations
 
             modelBuilder.Entity("SupTechHackathon2024.EFCore.Models.Call", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<int>("BankBranchId")
                         .HasColumnType("int");
