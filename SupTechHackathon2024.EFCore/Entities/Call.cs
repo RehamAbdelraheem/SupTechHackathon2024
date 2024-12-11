@@ -1,13 +1,16 @@
 ﻿using SupTechHackathon2024.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SupTechHackathon2024.EFCore.Models;
 
 public partial class Call :EntityBase
 {
-    public long Id { get; set; }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public Guid Id { get; set; }
     public string CbeCustomerId { get; set; } = null!;
     public int BankId { get; set; }
     public int BankBranchId { get; set; }

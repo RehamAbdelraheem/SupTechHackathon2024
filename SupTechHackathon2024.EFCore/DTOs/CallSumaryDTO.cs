@@ -3,7 +3,7 @@ namespace SupTechHackathon2024.EFCore.DTOs
 {
     public class CallSumaryDTO
     {
-        public long Id { get; set; }
+        public Guid Id { get; set; }
         public string CbeCustomerId { get; set; }
         public IEnumerable<string> Categories { get; set; }
         public string BankName { get; set; }

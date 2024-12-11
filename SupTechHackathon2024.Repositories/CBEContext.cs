@@ -102,6 +102,9 @@ namespace SupTechHackathon2024.Repositories
                 entity.HasIndex(e => e.IsAiAnalysisFailed, "idx_Call_IsAIAnalysisFailed");
 
                 entity.HasIndex(e => e.IsMisSellingDetected, "idx_Call_IsMisSellingDetected");
+                
+                entity.Property(e => e.Id)
+                .HasDefaultValueSql("NEWSEQUENTIALID()");
 
                 entity.Property(e => e.CbeCustomerId)
                     .HasMaxLength(12)
@@ -555,8 +558,8 @@ namespace SupTechHackathon2024.Repositories
             );
 
             modelBuilder.Entity<CustomerType>().HasData(
-                new CustomerType { Id = 1, NameAr = "أفراد", NameEn="Retail"},
-                new CustomerType { Id = 2, NameAr = "شركات صغيرة ومتوسطة", NameEn="SMEs" });
+                new CustomerType { Id = 1, NameAr = "أفراد", NameEn = "Retail" },
+                new CustomerType { Id = 2, NameAr = "شركات صغيرة ومتوسطة", NameEn = "SMEs" });
 
             modelBuilder.Entity<EducationLevel>().HasData(
                 new EducationLevel { Id = 1, NameAr = "بدون مؤهل (غير متعلم وحتى الإعدادية)", NameEn = "Illiterate to Preparatory School" },
@@ -576,10 +579,10 @@ namespace SupTechHackathon2024.Repositories
             );
 
             modelBuilder.Entity<OfficialIdDocumentType>().HasData(
-                new OfficialIdDocumentType { Id = 1, NameAr = "بطاقة رقم قومي", NameEn="National Id Card"},
-                new OfficialIdDocumentType { Id = 2, NameAr = "جواز سفر", NameEn="Passport" },
-                new OfficialIdDocumentType { Id = 3, NameAr = "سجل تجاري", NameEn="Business Registeration Document" },
-                new OfficialIdDocumentType { Id = 4, NameAr = "بطاقة ضريبية", NameEn="Tax Identification Document" });
+                new OfficialIdDocumentType { Id = 1, NameAr = "بطاقة رقم قومي", NameEn = "National Id Card" },
+                new OfficialIdDocumentType { Id = 2, NameAr = "جواز سفر", NameEn = "Passport" },
+                new OfficialIdDocumentType { Id = 3, NameAr = "سجل تجاري", NameEn = "Business Registeration Document" },
+                new OfficialIdDocumentType { Id = 4, NameAr = "بطاقة ضريبية", NameEn = "Tax Identification Document" });
 
             modelBuilder.Entity<FinancialService>().HasData(
                 new FinancialService { Id = 1, NameAr = "بطاقة ائتمان", NameEn = "Credit Card" },
@@ -620,7 +623,7 @@ namespace SupTechHackathon2024.Repositories
                 new MisSellingCategory { Id = 18, NameAr = "تضليل حول التأمين", NameEn = "Misrepresentation of Insurance Coverage" },
                 new MisSellingCategory { Id = 19, NameAr = "تضليل حول الاستثمارات", NameEn = "Misrepresentation of Investment Strategies" },
                 new MisSellingCategory { Id = 20, NameAr = "تضليل حول الأصول", NameEn = "Misrepresentation of Asset Allocation" });
-            
+
             modelBuilder.Entity<Bank>().HasData(
                 new Bank { Id = 1, NameAr = "البنك الأهلي المصري", NameEn = "National Bank of Egypt" },
                 new Bank { Id = 2, NameAr = "بنك مصر", NameEn = "Banque Misr" },
@@ -1184,6 +1187,157 @@ namespace SupTechHackathon2024.Repositories
                     Amount = 44000.00m
                 }
             );
+
+
+            modelBuilder.Entity<Call>().HasData(
+                //Good SME "000010649258" (Tech Solutions)
+                //Call 1: Interested but can't afford (Mis-selling)
+                new Call
+                {
+                    Id = Guid.NewGuid(),
+                    CbeCustomerId = "000010649258",
+                    BankId = 3,
+                    BankBranchId = 1,
+                    FinancialServiceId = 1,
+                    MisSellingCategoryId = 1,
+                    IsAiAnalysisFailed = false,
+                    IsMisSellingDetected = true,
+                    Transcript = "ألو، مساء الخير. أنا من بنك القاهرة، ممكن أتكلم مع حضرتك عن عرض التمويل الجديد للشركات الصغيرة والمتوسطة؟\n" +
+                                 "مساء النور، اتفضل.\n" +
+                                 "عندنا عرض تمويل بفائدة منخفضة لتمويل توسعات شركتك. العرض ده ممكن يساعدك في تطوير البنية التحتية وزيادة الإنتاج.\n" +
+                                 "العرض ده ممتاز، بس بصراحة الميزانية الحالية مش هتسمح لنا نتحمل أي قروض جديدة دلوقتي.\n" +
+                                 "ما تقلقش، إحنا هنساعدك في ترتيب خطة دفع مريحة حتى لو مش هتقدر تلتزم بيها دلوقتي.\n" +
+                                 "طيب، ممكن نتكلم في التفاصيل أكتر، بس مش متأكد إني هقدر ألتزم دلوقتي.\n" +
+                                 "ما فيش مشكلة، المهم إنك تبدأ وتستفيد من العرض."
+                },
+                //Call 2: Not interested and can't afford (Not Mis-selling)
+                new Call
+                {
+                    Id = Guid.NewGuid(),
+                    CbeCustomerId = "000010649258",
+                    BankId = 3,
+                    BankBranchId = 1,
+                    FinancialServiceId = 1,
+                    MisSellingCategoryId = null,
+                    IsAiAnalysisFailed = false,
+                    IsMisSellingDetected = false,
+                    Transcript = "ألو، مساء الخير. أنا من بنك القاهرة، عندنا عرض تمويل جديد للشركات الصغيرة والمتوسطة.\n" +
+                                 "مساء النور، بس بصراحة مش مهتمين بأي تمويل جديد دلوقتي.\n" +
+                                 "العرض ده بفائدة منخفضة وممكن يساعدك في توسعات شركتك.\n" +
+                                 "حتى لو الفائدة منخفضة، إحنا مش في وضع يسمح لنا نتحمل أي قروض جديدة دلوقتي.\n" +
+                                 "فاهم، لو احتجت أي مساعدة في المستقبل، إحنا موجودين."
+                },
+                //Bad SME "000010649257" (Green Farms)
+                //Call 1: Interested but can't afford (Mis-selling)
+                new Call
+                {
+                    Id = Guid.NewGuid(),
+                    CbeCustomerId = "000010649257",
+                    BankId = 5,
+                    BankBranchId = 2,
+                    FinancialServiceId = 2,
+                    MisSellingCategoryId = 1,
+                    IsAiAnalysisFailed = false,
+                    IsMisSellingDetected = true,
+                    Transcript = "ألو، مساء الخير. أنا من بنك الإسكندرية، عندنا عرض تمويل جديد للشركات الزراعية.\n" +
+                                 "مساء النور، اتفضل.\n" +
+                                 "العرض ده بفائدة منخفضة وممكن يساعدك في تطوير المزارع وزيادة الإنتاج.\n" +
+                                 "العرض ده كويس، بس بصراحة الميزانية الحالية مش هتسمح لنا نتحمل أي قروض جديدة دلوقتي.\n" +
+                                 "ما تقلقش، إحنا هنساعدك في ترتيب خطة دفع مريحة حتى لو مش هتقدر تلتزم بيها دلوقتي.\n" +
+                                 "طيب، ممكن نتكلم في التفاصيل أكتر، بس مش متأكد إني هقدر ألتزم دلوقتي.\n" +
+                                 "ما فيش مشكلة، المهم إنك تبدأ وتستفيد من العرض."
+                },
+                //Call 2: Not interested and can't afford (Not Mis-selling)
+                new Call
+                {
+                    Id = Guid.NewGuid(),
+                    CbeCustomerId = "000010649257",
+                    BankId = 5,
+                    BankBranchId = 2,
+                    FinancialServiceId = 2,
+                    MisSellingCategoryId = null,
+                    IsAiAnalysisFailed = false,
+                    IsMisSellingDetected = false,
+                    Transcript = "ألو، مساء الخير. أنا من بنك الإسكندرية، عندنا عرض تمويل جديد للشركات الزراعية.\n" +
+                                 "مساء النور، بس بصراحة مش مهتمين بأي تمويل جديد دلوقتي.\n" +
+                                 "العرض ده بفائدة منخفضة وممكن يساعدك في تطوير المزارع.\n" +
+                                 "حتى لو الفائدة منخفضة، إحنا مش في وضع يسمح لنا نتحمل أي قروض جديدة دلوقتي.\n" +
+                                 "فاهم، لو احتجت أي مساعدة في المستقبل، إحنا موجودين."
+                },
+                //Good Individual "000010649255" (Sara Mohamed)
+                //Call 1: Interested and can afford (Not Mis-selling)
+                new Call
+                {
+                    Id = Guid.NewGuid(),
+                    CbeCustomerId = "000010649255",
+                    BankId = 1,
+                    BankBranchId = 3,
+                    FinancialServiceId = 3,
+                    MisSellingCategoryId = null,
+                    IsAiAnalysisFailed = false,
+                    IsMisSellingDetected = false,
+                    Transcript = "ألو، مساء الخير. أنا من البنك الأهلي المصري، عندنا عرض جديد لبطاقة ائتمان بفائدة منخفضة.\n" +
+                                 "مساء النور، اتفضل.\n" +
+                                 "البطاقة دي ممكن تساعدك في إدارة مصاريفك اليومية وتوفر لك عروض وخصومات حصرية.\n" +
+                                 "العرض ده كويس، أنا مهتمة. إيه الإجراءات المطلوبة؟\n" +
+                                 "هنحتاج بعض الأوراق البسيطة، وممكن نبدأ في الإجراءات فورًا.\n" +
+                                 "تمام، هجهز الأوراق وأبعتهم لحضرتك."
+                },
+                //Call 2: Not interested but can afford (Mis-selling)
+                new Call
+                {
+                    Id = Guid.NewGuid(),
+                    CbeCustomerId = "000010649255",
+                    BankId = 1,
+                    BankBranchId = 3,
+                    FinancialServiceId = 3,
+                    MisSellingCategoryId = 2,
+                    IsAiAnalysisFailed = false,
+                    IsMisSellingDetected = true,
+                    Transcript = "ألو، مساء الخير. أنا من البنك الأهلي المصري، عندنا عرض جديد لبطاقة ائتمان بفائدة منخفضة.\n" +
+                                 "مساء النور، بس بصراحة مش مهتمة ببطاقات ائتمان جديدة دلوقتي.\n" +
+                                 "البطاقة دي ممكن تساعدك في إدارة مصاريفك اليومية وتوفر لك عروض وخصومات حصرية.\n" +
+                                 "حتى لو الفائدة منخفضة، أنا مش محتاجة بطاقة جديدة دلوقتي.\n" +
+                                 "لازم تاخدي البطاقة دي، هتساعدك كتير في مصاريفك.\n" +
+                                 "قلت لحضرتك مش مهتمة، شكراً."
+                },
+                //Bad Individual "000010649254" (Ahmed Ali)
+                //Call 1: Interested but can't afford (Mis-selling)
+                new Call
+                {
+                    Id = Guid.NewGuid(),
+                    CbeCustomerId = "000010649254",
+                    BankId = 2,
+                    BankBranchId = 4,
+                    FinancialServiceId = 4,
+                    MisSellingCategoryId = 1,
+                    IsAiAnalysisFailed = false,
+                    IsMisSellingDetected = true,
+                    Transcript = "ألو، مساء الخير. أنا من بنك مصر، عندنا عرض جديد لقرض شخصي بفائدة منخفضة.\n" +
+                                    "مساء النور، اتفضل.\n" +
+                                    "القرض ده ممكن يساعدك في تغطية مصاريفك الشخصية أو أي احتياجات طارئة.\n" +
+                                    "العرض ده كويس، بس بصراحة الميزانية الحالية مش هتسمح لي أتحمل أي قروض جديدة دلوقتي.\n" +
+                                    "ما تقلقش، إحنا هنساعدك في ترتيب خطة دفع مريحة حتى لو مش هتقدر تلتزم بيها دلوقتي.\n" +
+                                    "طيب، ممكن نتكلم في التفاصيل أكتر، بس مش متأكد إني هقدر ألتزم دلوقتي.\n" +
+                                    "ما فيش مشكلة، المهم إنك تبدأ وتستفيد من العرض."
+                },
+                //Call 2: Not interested and can't afford (Not Mis-selling)
+                new Call
+                {
+                    Id = Guid.NewGuid(),
+                    CbeCustomerId = "000010649254",
+                    BankId = 2,
+                    BankBranchId = 4,
+                    FinancialServiceId = 4,
+                    MisSellingCategoryId = null,
+                    IsAiAnalysisFailed = false,
+                    IsMisSellingDetected = false,
+                    Transcript = "ألو، مساء الخير. أنا من بنك مصر، عندنا عرض جديد لقرض شخصي بفائدة منخفضة.\n" +
+                                    "مساء النور، بس بصراحة مش مهتم بأي قروض جديدة دلوقتي.\n" +
+                                    "القرض ده ممكن يساعدك في تغطية مصاريفك الشخصية أو أي احتياجات طارئة.\n" +
+                                    "حتى لو الفائدة منخفضة، أنا مش في وضع يسمح لي أتحمل أي قروض جديدة دلوقتي.\n" +
+                                    "فاهم، لو احتجت أي مساعدة في المستقبل، إحنا موجودين."
+                });
 
             OnModelCreatingPartial(modelBuilder);
         }

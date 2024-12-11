@@ -12,8 +12,8 @@ using SupTechHackathon2024.Repositories;
 namespace SupTechHackathon2024.Repositories.Migrations
 {
     [DbContext(typeof(CBEContext))]
-    [Migration("20241211201706_add-audit")]
-    partial class addaudit
+    [Migration("20241211225317_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -258,11 +258,10 @@ namespace SupTechHackathon2024.Repositories.Migrations
 
             modelBuilder.Entity("SupTechHackathon2024.EFCore.Models.Call", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWSEQUENTIALID()");
 
                     b.Property<int>("BankBranchId")
                         .HasColumnType("int");
@@ -276,6 +275,12 @@ namespace SupTechHackathon2024.Repositories.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(12)")
                         .HasColumnName("CbeCustomerId");
+
+                    b.Property<int>("CreateBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
@@ -293,8 +298,17 @@ namespace SupTechHackathon2024.Repositories.Migrations
                     b.Property<int?>("MisSellingCategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("Transcript")
                         .IsRequired()
@@ -317,6 +331,156 @@ namespace SupTechHackathon2024.Repositories.Migrations
                     b.HasIndex(new[] { "MisSellingCategoryId" }, "idx_Call_MisSellingCategoryId");
 
                     b.ToTable("Call", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("162af433-2dd0-47e4-86bf-3cbd1f16796d"),
+                            BankBranchId = 1,
+                            BankId = 3,
+                            CbeCustomerId = "000010649258",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 1,
+                            IsAiAnalysisFailed = false,
+                            IsMisSellingDetected = true,
+                            MisSellingCategoryId = 1,
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 0,
+                            Transcript = "ألو، مساء الخير. أنا من بنك القاهرة، ممكن أتكلم مع حضرتك عن عرض التمويل الجديد للشركات الصغيرة والمتوسطة؟\nمساء النور، اتفضل.\nعندنا عرض تمويل بفائدة منخفضة لتمويل توسعات شركتك. العرض ده ممكن يساعدك في تطوير البنية التحتية وزيادة الإنتاج.\nالعرض ده ممتاز، بس بصراحة الميزانية الحالية مش هتسمح لنا نتحمل أي قروض جديدة دلوقتي.\nما تقلقش، إحنا هنساعدك في ترتيب خطة دفع مريحة حتى لو مش هتقدر تلتزم بيها دلوقتي.\nطيب، ممكن نتكلم في التفاصيل أكتر، بس مش متأكد إني هقدر ألتزم دلوقتي.\nما فيش مشكلة، المهم إنك تبدأ وتستفيد من العرض."
+                        },
+                        new
+                        {
+                            Id = new Guid("132ba4c6-312a-45ad-af64-b79cbbcfd0cb"),
+                            BankBranchId = 1,
+                            BankId = 3,
+                            CbeCustomerId = "000010649258",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 1,
+                            IsAiAnalysisFailed = false,
+                            IsMisSellingDetected = false,
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 0,
+                            Transcript = "ألو، مساء الخير. أنا من بنك القاهرة، عندنا عرض تمويل جديد للشركات الصغيرة والمتوسطة.\nمساء النور، بس بصراحة مش مهتمين بأي تمويل جديد دلوقتي.\nالعرض ده بفائدة منخفضة وممكن يساعدك في توسعات شركتك.\nحتى لو الفائدة منخفضة، إحنا مش في وضع يسمح لنا نتحمل أي قروض جديدة دلوقتي.\nفاهم، لو احتجت أي مساعدة في المستقبل، إحنا موجودين."
+                        },
+                        new
+                        {
+                            Id = new Guid("0a5e0473-68ca-4d93-9fac-87d195ca1203"),
+                            BankBranchId = 2,
+                            BankId = 5,
+                            CbeCustomerId = "000010649257",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 2,
+                            IsAiAnalysisFailed = false,
+                            IsMisSellingDetected = true,
+                            MisSellingCategoryId = 1,
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 0,
+                            Transcript = "ألو، مساء الخير. أنا من بنك الإسكندرية، عندنا عرض تمويل جديد للشركات الزراعية.\nمساء النور، اتفضل.\nالعرض ده بفائدة منخفضة وممكن يساعدك في تطوير المزارع وزيادة الإنتاج.\nالعرض ده كويس، بس بصراحة الميزانية الحالية مش هتسمح لنا نتحمل أي قروض جديدة دلوقتي.\nما تقلقش، إحنا هنساعدك في ترتيب خطة دفع مريحة حتى لو مش هتقدر تلتزم بيها دلوقتي.\nطيب، ممكن نتكلم في التفاصيل أكتر، بس مش متأكد إني هقدر ألتزم دلوقتي.\nما فيش مشكلة، المهم إنك تبدأ وتستفيد من العرض."
+                        },
+                        new
+                        {
+                            Id = new Guid("42ed66e5-ec4d-46b4-9ecc-3eb9f49ea7bd"),
+                            BankBranchId = 2,
+                            BankId = 5,
+                            CbeCustomerId = "000010649257",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 2,
+                            IsAiAnalysisFailed = false,
+                            IsMisSellingDetected = false,
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 0,
+                            Transcript = "ألو، مساء الخير. أنا من بنك الإسكندرية، عندنا عرض تمويل جديد للشركات الزراعية.\nمساء النور، بس بصراحة مش مهتمين بأي تمويل جديد دلوقتي.\nالعرض ده بفائدة منخفضة وممكن يساعدك في تطوير المزارع.\nحتى لو الفائدة منخفضة، إحنا مش في وضع يسمح لنا نتحمل أي قروض جديدة دلوقتي.\nفاهم، لو احتجت أي مساعدة في المستقبل، إحنا موجودين."
+                        },
+                        new
+                        {
+                            Id = new Guid("4a594ec6-0b75-4b96-b8bf-417cda60bcef"),
+                            BankBranchId = 3,
+                            BankId = 1,
+                            CbeCustomerId = "000010649255",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 3,
+                            IsAiAnalysisFailed = false,
+                            IsMisSellingDetected = false,
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 0,
+                            Transcript = "ألو، مساء الخير. أنا من البنك الأهلي المصري، عندنا عرض جديد لبطاقة ائتمان بفائدة منخفضة.\nمساء النور، اتفضل.\nالبطاقة دي ممكن تساعدك في إدارة مصاريفك اليومية وتوفر لك عروض وخصومات حصرية.\nالعرض ده كويس، أنا مهتمة. إيه الإجراءات المطلوبة؟\nهنحتاج بعض الأوراق البسيطة، وممكن نبدأ في الإجراءات فورًا.\nتمام، هجهز الأوراق وأبعتهم لحضرتك."
+                        },
+                        new
+                        {
+                            Id = new Guid("37f1d91f-a6dd-40bf-b2b6-358d88290169"),
+                            BankBranchId = 3,
+                            BankId = 1,
+                            CbeCustomerId = "000010649255",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 3,
+                            IsAiAnalysisFailed = false,
+                            IsMisSellingDetected = true,
+                            MisSellingCategoryId = 2,
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 0,
+                            Transcript = "ألو، مساء الخير. أنا من البنك الأهلي المصري، عندنا عرض جديد لبطاقة ائتمان بفائدة منخفضة.\nمساء النور، بس بصراحة مش مهتمة ببطاقات ائتمان جديدة دلوقتي.\nالبطاقة دي ممكن تساعدك في إدارة مصاريفك اليومية وتوفر لك عروض وخصومات حصرية.\nحتى لو الفائدة منخفضة، أنا مش محتاجة بطاقة جديدة دلوقتي.\nلازم تاخدي البطاقة دي، هتساعدك كتير في مصاريفك.\nقلت لحضرتك مش مهتمة، شكراً."
+                        },
+                        new
+                        {
+                            Id = new Guid("7f2113b9-87d3-47ff-8fa3-6d87e8b34f5d"),
+                            BankBranchId = 4,
+                            BankId = 2,
+                            CbeCustomerId = "000010649254",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 4,
+                            IsAiAnalysisFailed = false,
+                            IsMisSellingDetected = true,
+                            MisSellingCategoryId = 1,
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 0,
+                            Transcript = "ألو، مساء الخير. أنا من بنك مصر، عندنا عرض جديد لقرض شخصي بفائدة منخفضة.\nمساء النور، اتفضل.\nالقرض ده ممكن يساعدك في تغطية مصاريفك الشخصية أو أي احتياجات طارئة.\nالعرض ده كويس، بس بصراحة الميزانية الحالية مش هتسمح لي أتحمل أي قروض جديدة دلوقتي.\nما تقلقش، إحنا هنساعدك في ترتيب خطة دفع مريحة حتى لو مش هتقدر تلتزم بيها دلوقتي.\nطيب، ممكن نتكلم في التفاصيل أكتر، بس مش متأكد إني هقدر ألتزم دلوقتي.\nما فيش مشكلة، المهم إنك تبدأ وتستفيد من العرض."
+                        },
+                        new
+                        {
+                            Id = new Guid("d6952843-7c81-4788-b676-a76ed38492f5"),
+                            BankBranchId = 4,
+                            BankId = 2,
+                            CbeCustomerId = "000010649254",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 4,
+                            IsAiAnalysisFailed = false,
+                            IsMisSellingDetected = false,
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 0,
+                            Transcript = "ألو، مساء الخير. أنا من بنك مصر، عندنا عرض جديد لقرض شخصي بفائدة منخفضة.\nمساء النور، بس بصراحة مش مهتم بأي قروض جديدة دلوقتي.\nالقرض ده ممكن يساعدك في تغطية مصاريفك الشخصية أو أي احتياجات طارئة.\nحتى لو الفائدة منخفضة، أنا مش في وضع يسمح لي أتحمل أي قروض جديدة دلوقتي.\nفاهم، لو احتجت أي مساعدة في المستقبل، إحنا موجودين."
+                        });
                 });
 
             modelBuilder.Entity("SupTechHackathon2024.EFCore.Models.CbeCustomer", b =>
