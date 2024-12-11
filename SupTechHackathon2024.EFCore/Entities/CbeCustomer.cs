@@ -1,9 +1,10 @@
-﻿using System;
+﻿using SupTechHackathon2024.Common;
+using System;
 using System.Collections.Generic;
 
 namespace SupTechHackathon2024.EFCore.Models
 {
-    public partial class CbeCustomer
+    public partial class CbeCustomer : EntityBase
     {
         public CbeCustomer()
         {

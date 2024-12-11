@@ -5,8 +5,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
 			<PrivateAssets>all</PrivateAssets>
@@ -20,10 +18,11 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
 
 	</ItemGroup>
-
-
 	<ItemGroup>
 	  <ProjectReference Include="..\SupTechHackathon2024.Common\SupTechHackathon2024.Common.csproj" />
+	  <ProjectReference Include="..\SupTechHackathon2024.EFCore\SupTechHackathon2024.EFCore.csproj" />
 	</ItemGroup>
-
+	<ItemGroup>
+	  <Folder Include="Enums\" />
+	</ItemGroup>
 </Project>

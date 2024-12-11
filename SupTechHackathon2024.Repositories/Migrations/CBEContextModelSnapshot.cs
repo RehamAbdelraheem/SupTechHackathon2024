@@ -3,19 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SupTechHackathon2024.EFCore;
+using SupTechHackathon2024.Repositories;
 
 #nullable disable
 
-namespace SupTechHackathon2024.EFCore.Migrations
+namespace SupTechHackathon2024.Repositories.Migrations
 {
     [DbContext(typeof(CBEContext))]
-    [Migration("20241210224137_RenamingAndSeed")]
-    partial class RenamingAndSeed
+    partial class CBEContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,7 +71,12 @@ namespace SupTechHackathon2024.EFCore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("NameAr")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NameEn")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -81,6 +84,56 @@ namespace SupTechHackathon2024.EFCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Bank", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            NameAr = "البنك الأهلي المصري",
+                            NameEn = "National Bank of Egypt"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            NameAr = "بنك مصر",
+                            NameEn = "Banque Misr"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            NameAr = "بنك القاهرة",
+                            NameEn = "Banque du Caire"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            NameAr = "البنك التجاري الدولي",
+                            NameEn = "Commercial International Bank"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            NameAr = "بنك الإسكندرية",
+                            NameEn = "Bank of Alexandria"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            NameAr = "بنك قناة السويس",
+                            NameEn = "Suez Canal Bank"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            NameAr = "البنك العربي الأفريقي الدولي",
+                            NameEn = "Arab African International Bank"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            NameAr = "بنك قطر الوطني الأهلي",
+                            NameEn = "Qatar National Bank Alahli"
+                        });
                 });
 
             modelBuilder.Entity("SupTechHackathon2024.EFCore.Models.BankBranch", b =>
@@ -91,7 +144,12 @@ namespace SupTechHackathon2024.EFCore.Migrations
                     b.Property<int>("BankId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("NameAr")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("NameEn")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -101,15 +159,106 @@ namespace SupTechHackathon2024.EFCore.Migrations
                     b.HasIndex("BankId");
 
                     b.ToTable("BankBranch", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BankId = 1,
+                            NameAr = "فرع القاهرة",
+                            NameEn = "Cairo Branch"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BankId = 1,
+                            NameAr = "فرع الإسكندرية",
+                            NameEn = "Alexandria Branch"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BankId = 2,
+                            NameAr = "فرع الجيزة",
+                            NameEn = "Giza Branch"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BankId = 2,
+                            NameAr = "فرع المنصورة",
+                            NameEn = "Mansoura Branch"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BankId = 3,
+                            NameAr = "فرع أسيوط",
+                            NameEn = "Asyut Branch"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BankId = 3,
+                            NameAr = "فرع سوهاج",
+                            NameEn = "Sohag Branch"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BankId = 4,
+                            NameAr = "فرع الأقصر",
+                            NameEn = "Luxor Branch"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BankId = 4,
+                            NameAr = "فرع أسوان",
+                            NameEn = "Aswan Branch"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BankId = 5,
+                            NameAr = "فرع بورسعيد",
+                            NameEn = "Port Said Branch"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            BankId = 6,
+                            NameAr = "فرع الإسماعيلية",
+                            NameEn = "Ismailia Branch"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            BankId = 6,
+                            NameAr = "فرع السويس",
+                            NameEn = "Suez Branch"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            BankId = 7,
+                            NameAr = "فرع المعادي",
+                            NameEn = "Maadi Branch"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            BankId = 8,
+                            NameAr = "فرع مدينة نصر",
+                            NameEn = "Nasr City Branch"
+                        });
                 });
 
             modelBuilder.Entity("SupTechHackathon2024.EFCore.Models.Call", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("BankBranchId")
                         .HasColumnType("int");
@@ -123,6 +272,12 @@ namespace SupTechHackathon2024.EFCore.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(12)")
                         .HasColumnName("CbeCustomerId");
+
+                    b.Property<int>("CreateBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
@@ -140,8 +295,17 @@ namespace SupTechHackathon2024.EFCore.Migrations
                     b.Property<int?>("MisSellingCategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("Transcript")
                         .IsRequired()
@@ -173,6 +337,12 @@ namespace SupTechHackathon2024.EFCore.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(12)");
 
+                    b.Property<int>("CreateBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<short>("CustomerTypeId")
                         .HasColumnType("smallint");
 
@@ -182,10 +352,19 @@ namespace SupTechHackathon2024.EFCore.Migrations
                     b.Property<short?>("LatestCreditBureauScore")
                         .HasColumnType("smallint");
 
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SmeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -201,6 +380,60 @@ namespace SupTechHackathon2024.EFCore.Migrations
                     b.HasIndex(new[] { "SmeId" }, "idx_CbeCustomer_SmeId");
 
                     b.ToTable("CbeCustomer", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "000010649254",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerTypeId = (short)1,
+                            LatestCreditBureauReportingDate = new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LatestCreditBureauScore = (short)560,
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PersonId = 1,
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = "000010649255",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerTypeId = (short)1,
+                            LatestCreditBureauReportingDate = new DateTime(2024, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LatestCreditBureauScore = (short)760,
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PersonId = 2,
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = "000010649257",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerTypeId = (short)2,
+                            LatestCreditBureauReportingDate = new DateTime(2024, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LatestCreditBureauScore = (short)560,
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SmeId = 1,
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = "000010649258",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerTypeId = (short)2,
+                            LatestCreditBureauReportingDate = new DateTime(2024, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LatestCreditBureauScore = (short)790,
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SmeId = 2,
+                            Status = 0
+                        });
                 });
 
             modelBuilder.Entity("SupTechHackathon2024.EFCore.Models.Currency", b =>
@@ -365,6 +598,128 @@ namespace SupTechHackathon2024.EFCore.Migrations
                     b.HasIndex(new[] { "Score" }, "idx_CustomerCreditBureauReportingYearlyHistory_Score");
 
                     b.ToTable("CustomerCreditBureauReportingYearlyHistory", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            Year = (short)2020,
+                            Score = (short)750
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            Year = (short)2021,
+                            Score = (short)760
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            Year = (short)2022,
+                            Score = (short)770
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            Year = (short)2023,
+                            Score = (short)780
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            Year = (short)2024,
+                            Score = (short)790
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            Year = (short)2020,
+                            Score = (short)600
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            Year = (short)2021,
+                            Score = (short)590
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            Year = (short)2022,
+                            Score = (short)580
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            Year = (short)2023,
+                            Score = (short)570
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            Year = (short)2024,
+                            Score = (short)560
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            Year = (short)2020,
+                            Score = (short)730
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            Year = (short)2021,
+                            Score = (short)730
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            Year = (short)2022,
+                            Score = (short)740
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            Year = (short)2023,
+                            Score = (short)750
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            Year = (short)2024,
+                            Score = (short)760
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            Year = (short)2020,
+                            Score = (short)600
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            Year = (short)2021,
+                            Score = (short)590
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            Year = (short)2022,
+                            Score = (short)580
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            Year = (short)2023,
+                            Score = (short)570
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            Year = (short)2024,
+                            Score = (short)560
+                        });
                 });
 
             modelBuilder.Entity("SupTechHackathon2024.EFCore.Models.CustomerRiskRateYearlyHistory", b =>
@@ -392,6 +747,288 @@ namespace SupTechHackathon2024.EFCore.Migrations
                     b.HasIndex(new[] { "CbeCustomerId" }, "idx_CustomerRiskRateYearlyHistory_CbeCustomerId");
 
                     b.ToTable("CustomerRiskRateYearlyHistory", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 3,
+                            Year = (short)2020,
+                            Rate = (short)2
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 3,
+                            Year = (short)2021,
+                            Rate = (short)2
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 3,
+                            Year = (short)2022,
+                            Rate = (short)2
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 3,
+                            Year = (short)2023,
+                            Rate = (short)2
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 3,
+                            Year = (short)2024,
+                            Rate = (short)2
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 4,
+                            Year = (short)2020,
+                            Rate = (short)3
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 4,
+                            Year = (short)2021,
+                            Rate = (short)3
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 4,
+                            Year = (short)2022,
+                            Rate = (short)3
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 4,
+                            Year = (short)2023,
+                            Rate = (short)3
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 4,
+                            Year = (short)2024,
+                            Rate = (short)3
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 3,
+                            Year = (short)2020,
+                            Rate = (short)8
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 3,
+                            Year = (short)2021,
+                            Rate = (short)8
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 3,
+                            Year = (short)2022,
+                            Rate = (short)8
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 3,
+                            Year = (short)2023,
+                            Rate = (short)8
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 3,
+                            Year = (short)2024,
+                            Rate = (short)8
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 4,
+                            Year = (short)2020,
+                            Rate = (short)7
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 4,
+                            Year = (short)2021,
+                            Rate = (short)7
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 4,
+                            Year = (short)2022,
+                            Rate = (short)7
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 4,
+                            Year = (short)2023,
+                            Rate = (short)7
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 4,
+                            Year = (short)2024,
+                            Rate = (short)7
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 1,
+                            Year = (short)2020,
+                            Rate = (short)2
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 1,
+                            Year = (short)2021,
+                            Rate = (short)2
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 1,
+                            Year = (short)2022,
+                            Rate = (short)2
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 1,
+                            Year = (short)2023,
+                            Rate = (short)2
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 1,
+                            Year = (short)2024,
+                            Rate = (short)2
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 2,
+                            Year = (short)2020,
+                            Rate = (short)3
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 2,
+                            Year = (short)2021,
+                            Rate = (short)3
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 2,
+                            Year = (short)2022,
+                            Rate = (short)3
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 2,
+                            Year = (short)2023,
+                            Rate = (short)3
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 2,
+                            Year = (short)2024,
+                            Rate = (short)3
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 1,
+                            Year = (short)2020,
+                            Rate = (short)8
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 1,
+                            Year = (short)2021,
+                            Rate = (short)8
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 1,
+                            Year = (short)2022,
+                            Rate = (short)8
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 1,
+                            Year = (short)2023,
+                            Rate = (short)8
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 1,
+                            Year = (short)2024,
+                            Rate = (short)8
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 2,
+                            Year = (short)2020,
+                            Rate = (short)7
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 2,
+                            Year = (short)2021,
+                            Rate = (short)7
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 2,
+                            Year = (short)2022,
+                            Rate = (short)7
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 2,
+                            Year = (short)2023,
+                            Rate = (short)7
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 2,
+                            Year = (short)2024,
+                            Rate = (short)7
+                        });
                 });
 
             modelBuilder.Entity("SupTechHackathon2024.EFCore.Models.CustomerType", b =>
@@ -930,6 +1567,38 @@ namespace SupTechHackathon2024.EFCore.Migrations
                     b.HasIndex(new[] { "OfficialIdDocumentTypeId" }, "idx_Person_OfficialIdDocumentTypeId");
 
                     b.ToTable("Person", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Birthdate = new DateTime(1985, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EducationLevelId = (short)3,
+                            Email = "ahmed.ali@example.com",
+                            EmploymentStatusId = (short)2,
+                            FullName = "Ahmed Ali",
+                            Gender = "M",
+                            IdDocumentNumber = "28505201234567",
+                            MaritalStatusId = (short)3,
+                            Occupation = "Software Engineer",
+                            OfficialIdDocumentTypeId = (short)1,
+                            PhoneNumber = "01012345678"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Birthdate = new DateTime(1990, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EducationLevelId = (short)2,
+                            Email = "sara.mohamed@example.com",
+                            EmploymentStatusId = (short)1,
+                            FullName = "Sara Mohamed",
+                            Gender = "F",
+                            IdDocumentNumber = "29008159876543",
+                            MaritalStatusId = (short)1,
+                            Occupation = "Teacher",
+                            OfficialIdDocumentTypeId = (short)1,
+                            PhoneNumber = "01234567890"
+                        });
                 });
 
             modelBuilder.Entity("SupTechHackathon2024.EFCore.Models.RetailAnnualIncome", b =>
@@ -962,6 +1631,168 @@ namespace SupTechHackathon2024.EFCore.Migrations
                     b.HasIndex(new[] { "CurrencyId" }, "idx_RetailAnnualIncome_CurrencyId");
 
                     b.ToTable("RetailAnnualIncome", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 1,
+                            Year = (short)2020,
+                            CurrencyId = (short)1,
+                            Amount = 90000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 1,
+                            Year = (short)2021,
+                            CurrencyId = (short)1,
+                            Amount = 95000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 1,
+                            Year = (short)2022,
+                            CurrencyId = (short)1,
+                            Amount = 100000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 1,
+                            Year = (short)2023,
+                            CurrencyId = (short)1,
+                            Amount = 105000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 1,
+                            Year = (short)2024,
+                            CurrencyId = (short)1,
+                            Amount = 110000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 2,
+                            Year = (short)2020,
+                            CurrencyId = (short)1,
+                            Amount = 92000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 2,
+                            Year = (short)2021,
+                            CurrencyId = (short)1,
+                            Amount = 97000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 2,
+                            Year = (short)2022,
+                            CurrencyId = (short)1,
+                            Amount = 102000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 2,
+                            Year = (short)2023,
+                            CurrencyId = (short)1,
+                            Amount = 107000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649255",
+                            BankId = 2,
+                            Year = (short)2024,
+                            CurrencyId = (short)1,
+                            Amount = 112000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 1,
+                            Year = (short)2020,
+                            CurrencyId = (short)1,
+                            Amount = 50000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 1,
+                            Year = (short)2021,
+                            CurrencyId = (short)1,
+                            Amount = 48000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 1,
+                            Year = (short)2022,
+                            CurrencyId = (short)1,
+                            Amount = 46000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 1,
+                            Year = (short)2023,
+                            CurrencyId = (short)1,
+                            Amount = 44000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 1,
+                            Year = (short)2024,
+                            CurrencyId = (short)1,
+                            Amount = 42000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 2,
+                            Year = (short)2020,
+                            CurrencyId = (short)1,
+                            Amount = 52000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 2,
+                            Year = (short)2021,
+                            CurrencyId = (short)1,
+                            Amount = 50000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 2,
+                            Year = (short)2022,
+                            CurrencyId = (short)1,
+                            Amount = 48000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 2,
+                            Year = (short)2023,
+                            CurrencyId = (short)1,
+                            Amount = 46000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649254",
+                            BankId = 2,
+                            Year = (short)2024,
+                            CurrencyId = (short)1,
+                            Amount = 44000.00m
+                        });
                 });
 
             modelBuilder.Entity("SupTechHackathon2024.EFCore.Models.Setting", b =>
@@ -1032,6 +1863,26 @@ namespace SupTechHackathon2024.EFCore.Migrations
                     b.HasIndex(new[] { "TaxIdNumber" }, "idx_Sme_TaxIdNumber");
 
                     b.ToTable("Sme", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BusinessRegisterIdNumber = "BR1234567890",
+                            IndustrySector = "Information Technology",
+                            LegalRepresentativePersonId = 1,
+                            Name = "Tech Solutions",
+                            TaxIdNumber = "581-945-545"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BusinessRegisterIdNumber = "BR0987654321",
+                            IndustrySector = "Agriculture",
+                            LegalRepresentativePersonId = 2,
+                            Name = "Green Farms",
+                            TaxIdNumber = "581-945-535"
+                        });
                 });
 
             modelBuilder.Entity("SupTechHackathon2024.EFCore.Models.SmeYearlyFinancialStatement", b =>
@@ -1076,6 +1927,200 @@ namespace SupTechHackathon2024.EFCore.Migrations
                     b.HasIndex(new[] { "ReportingCurrencyId" }, "idx_SmeYearlyFinancialStatement_ReportingCurrencyId");
 
                     b.ToTable("SmeYearlyFinancialStatement", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 3,
+                            ReportingDate = new DateTime(2020, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 100000.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 500000.00m,
+                            TotalAssets = 700000.00m,
+                            TotalEquity = 300000.00m,
+                            TotalLiabilities = 400000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 3,
+                            ReportingDate = new DateTime(2021, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 110000.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 550000.00m,
+                            TotalAssets = 750000.00m,
+                            TotalEquity = 350000.00m,
+                            TotalLiabilities = 400000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 3,
+                            ReportingDate = new DateTime(2022, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 120000.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 600000.00m,
+                            TotalAssets = 800000.00m,
+                            TotalEquity = 400000.00m,
+                            TotalLiabilities = 400000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 3,
+                            ReportingDate = new DateTime(2023, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 130000.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 650000.00m,
+                            TotalAssets = 850000.00m,
+                            TotalEquity = 450000.00m,
+                            TotalLiabilities = 400000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 3,
+                            ReportingDate = new DateTime(2024, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 140000.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 700000.00m,
+                            TotalAssets = 900000.00m,
+                            TotalEquity = 500000.00m,
+                            TotalLiabilities = 400000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 4,
+                            ReportingDate = new DateTime(2020, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 104000.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 520000.00m,
+                            TotalAssets = 720000.00m,
+                            TotalEquity = 320000.00m,
+                            TotalLiabilities = 400000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 4,
+                            ReportingDate = new DateTime(2021, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 114000.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 570000.00m,
+                            TotalAssets = 770000.00m,
+                            TotalEquity = 370000.00m,
+                            TotalLiabilities = 400000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 4,
+                            ReportingDate = new DateTime(2022, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 124000.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 620000.00m,
+                            TotalAssets = 820000.00m,
+                            TotalEquity = 420000.00m,
+                            TotalLiabilities = 400000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 4,
+                            ReportingDate = new DateTime(2023, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 134000.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 670000.00m,
+                            TotalAssets = 870000.00m,
+                            TotalEquity = 470000.00m,
+                            TotalLiabilities = 400000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649258",
+                            BankId = 4,
+                            ReportingDate = new DateTime(2024, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 144000.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 720000.00m,
+                            TotalAssets = 920000.00m,
+                            TotalEquity = 520000.00m,
+                            TotalLiabilities = 400000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 3,
+                            ReportingDate = new DateTime(2024, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 0.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 220000.00m,
+                            TotalAssets = 320000.00m,
+                            TotalEquity = 80000.00m,
+                            TotalLiabilities = 240000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 4,
+                            ReportingDate = new DateTime(2020, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 25000.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 310000.00m,
+                            TotalAssets = 410000.00m,
+                            TotalEquity = 105000.00m,
+                            TotalLiabilities = 305000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 4,
+                            ReportingDate = new DateTime(2021, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 20000.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 290000.00m,
+                            TotalAssets = 390000.00m,
+                            TotalEquity = 100000.00m,
+                            TotalLiabilities = 290000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 4,
+                            ReportingDate = new DateTime(2022, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 15000.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 270000.00m,
+                            TotalAssets = 370000.00m,
+                            TotalEquity = 95000.00m,
+                            TotalLiabilities = 275000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 4,
+                            ReportingDate = new DateTime(2023, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 10000.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 250000.00m,
+                            TotalAssets = 350000.00m,
+                            TotalEquity = 90000.00m,
+                            TotalLiabilities = 260000.00m
+                        },
+                        new
+                        {
+                            CbeCustomerId = "000010649257",
+                            BankId = 4,
+                            ReportingDate = new DateTime(2024, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Profit = 5000.00m,
+                            ReportingCurrencyId = (short)1,
+                            Revenue = 230000.00m,
+                            TotalAssets = 330000.00m,
+                            TotalEquity = 85000.00m,
+                            TotalLiabilities = 245000.00m
+                        });
                 });
 
             modelBuilder.Entity("SupTechHackathon2024.EFCore.Models.BankBranch", b =>

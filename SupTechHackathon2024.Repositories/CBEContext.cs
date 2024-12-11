@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using SupTechHackathon2024.EFCore.Models;
 
-namespace SupTechHackathon2024.EFCore
+namespace SupTechHackathon2024.Repositories
 {
     public partial class CBEContext : DbContext
     {

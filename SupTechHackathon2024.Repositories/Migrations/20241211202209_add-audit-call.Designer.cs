@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SupTechHackathon2024.EFCore;
+using SupTechHackathon2024.Repositories;
 
 #nullable disable
 
-namespace SupTechHackathon2024.EFCore.Migrations
+namespace SupTechHackathon2024.Repositories.Migrations
 {
     [DbContext(typeof(CBEContext))]
-    [Migration("20241211154032_RenamingAndSeedTestData")]
-    partial class RenamingAndSeedTestData
+    [Migration("20241211202209_add-audit-call")]
+    partial class addauditcall
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -277,6 +277,12 @@ namespace SupTechHackathon2024.EFCore.Migrations
                         .HasColumnType("varchar(12)")
                         .HasColumnName("CbeCustomerId");
 
+                    b.Property<int>("CreateBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
@@ -293,8 +299,17 @@ namespace SupTechHackathon2024.EFCore.Migrations
                     b.Property<int?>("MisSellingCategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("Transcript")
                         .IsRequired()
@@ -326,6 +341,12 @@ namespace SupTechHackathon2024.EFCore.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(12)");
 
+                    b.Property<int>("CreateBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<short>("CustomerTypeId")
                         .HasColumnType("smallint");
 
@@ -335,10 +356,19 @@ namespace SupTechHackathon2024.EFCore.Migrations
                     b.Property<short?>("LatestCreditBureauScore")
                         .HasColumnType("smallint");
 
+                    b.Property<int>("ModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SmeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -359,34 +389,54 @@ namespace SupTechHackathon2024.EFCore.Migrations
                         new
                         {
                             Id = "000010649254",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerTypeId = (short)1,
                             LatestCreditBureauReportingDate = new DateTime(2024, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LatestCreditBureauScore = (short)560,
-                            PersonId = 1
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PersonId = 1,
+                            Status = 0
                         },
                         new
                         {
                             Id = "000010649255",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerTypeId = (short)1,
                             LatestCreditBureauReportingDate = new DateTime(2024, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LatestCreditBureauScore = (short)760,
-                            PersonId = 2
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PersonId = 2,
+                            Status = 0
                         },
                         new
                         {
                             Id = "000010649257",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerTypeId = (short)2,
                             LatestCreditBureauReportingDate = new DateTime(2024, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LatestCreditBureauScore = (short)560,
-                            SmeId = 1
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SmeId = 1,
+                            Status = 0
                         },
                         new
                         {
                             Id = "000010649258",
+                            CreateBy = 0,
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerTypeId = (short)2,
                             LatestCreditBureauReportingDate = new DateTime(2024, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LatestCreditBureauScore = (short)790,
-                            SmeId = 2
+                            ModifiedBy = 0,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SmeId = 2,
+                            Status = 0
                         });
                 });
 

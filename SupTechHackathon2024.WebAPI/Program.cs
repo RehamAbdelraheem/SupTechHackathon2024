@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using SupTechHackathon2024.EFCore;
+using SupTechHackathon2024.Repositories;
+using SupTechHackathon2024.Repositories.Interfaces;
+using SupTechHackathon2024.Services.Interfaces;
+using SupTechHackathon2024.Services.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +33,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddScoped<ICallRepository, CallRepository>();
+builder.Services.AddTransient<ICallService, CallService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

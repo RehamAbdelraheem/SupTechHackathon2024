@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupTechHackathon2024.WebAPI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupTechHackathon2024.EFCore", "SupTechHackathon2024.EFCore\SupTechHackathon2024.EFCore.csproj", "{A4789A7E-D580-499B-82B5-EFB4D0378023}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupTechHackathon2024.Services", "SupTechHackathon2024.Services\SupTechHackathon2024.Services.csproj", "{46230970-16FC-45B1-AF7D-E015F4646BD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupTechHackathon2024.Repositories", "SupTechHackathon2024.Repositories\SupTechHackathon2024.Repositories.csproj", "{77645CD7-D69B-483E-961F-EFB18A5A8DED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupTechHackathon2024.Common", "SupTechHackathon2024.Common\SupTechHackathon2024.Common.csproj", "{49C271CC-3F48-45B2-BE88-1D489BA2D8AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,18 @@ Global
 		{A4789A7E-D580-499B-82B5-EFB4D0378023}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4789A7E-D580-499B-82B5-EFB4D0378023}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4789A7E-D580-499B-82B5-EFB4D0378023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46230970-16FC-45B1-AF7D-E015F4646BD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46230970-16FC-45B1-AF7D-E015F4646BD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46230970-16FC-45B1-AF7D-E015F4646BD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46230970-16FC-45B1-AF7D-E015F4646BD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77645CD7-D69B-483E-961F-EFB18A5A8DED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77645CD7-D69B-483E-961F-EFB18A5A8DED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77645CD7-D69B-483E-961F-EFB18A5A8DED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77645CD7-D69B-483E-961F-EFB18A5A8DED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49C271CC-3F48-45B2-BE88-1D489BA2D8AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49C271CC-3F48-45B2-BE88-1D489BA2D8AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49C271CC-3F48-45B2-BE88-1D489BA2D8AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49C271CC-3F48-45B2-BE88-1D489BA2D8AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

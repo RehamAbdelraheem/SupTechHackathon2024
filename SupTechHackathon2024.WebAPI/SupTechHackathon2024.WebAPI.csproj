@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SupTechHackathon2024.EFCore\SupTechHackathon2024.EFCore.csproj" />
+    <ProjectReference Include="..\SupTechHackathon2024.Services\SupTechHackathon2024.Services.csproj" />
   </ItemGroup>
 
 </Project>
