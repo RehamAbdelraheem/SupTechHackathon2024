@@ -9,23 +9,36 @@ namespace SupTechHackathon2024.WebAPI.Controllers;
 public class CustomerController : Controller
 {
 
-    private readonly ICallService _CBECustumerSupportService;
+    private readonly ICallService _cbeCustumerSupportService;
     public CustomerController(ICallService CBECustumerSupportService)
     {
-        _CBECustumerSupportService = CBECustumerSupportService;
+        _cbeCustumerSupportService = CBECustumerSupportService;
     }
 
     /// <summary>
-    ///       Get CBE Custumer Reports
+    ///       Get call for AI analysis
     /// </summary>
-    /// <returns>array of CBE Custumer report </returns>
+    /// <returns>A single call with relevant customer data</returns>
+    ///<response code="200">Return SingleCallDto successfully</response>
+    [HttpGet]
+    [Route("GetCallForAiAnalysis")]  
+    public async Task<IActionResult> GetCallForAiAnalysis()
+    {
+        var data = await _cbeCustumerSupportService.GetCallForAiAnalysis();
+        return Ok(new { results = data });
+    }
+
+    /// <summary>
+    ///       Get all calls of a single year for AI analysis
+    /// </summary>
+    /// <returns>An object with a list of categories and financial services/ products along with all the calls of the specified year</returns>
     ///<response code="200">return CBE Custumer report  successfully</response>
     [HttpGet]
-    [Route("CBECustomerReports")]  
-    public async Task<IActionResult> GetCallReport()
+    [Route("GetCallsByYear")]  
+    public async Task<IActionResult> GetCallsByYear([FromQuery]short year)
     {
-        var Data = await _CBECustumerSupportService.GetCallReport();
-        return Ok(new { results = Data });
+        var data = await _cbeCustumerSupportService.GetCallsByYear(year);
+        return Ok(new { results = data });
     }
 
 }

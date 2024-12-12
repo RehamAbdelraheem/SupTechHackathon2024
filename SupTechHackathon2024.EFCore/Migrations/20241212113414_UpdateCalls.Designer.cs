@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SupTechHackathon2024.EFCore;
 
@@ -11,9 +12,10 @@ using SupTechHackathon2024.EFCore;
 namespace SupTechHackathon2024.EFCore.Migrations
 {
     [DbContext(typeof(CBEContext))]
-    partial class CBEContextModelSnapshot : ModelSnapshot
+    [Migration("20241212113414_UpdateCalls")]
+    partial class UpdateCalls
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -333,121 +335,148 @@ namespace SupTechHackathon2024.EFCore.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e5722ef2-d366-47f9-8605-e5ec16ff8e1f"),
+                            Id = new Guid("68977fba-e51e-4bd2-94cc-c45a0e35acfe"),
                             BankBranchId = 1,
                             BankId = 3,
                             CbeCustomerId = "000010649258",
                             CreateBy = 0,
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndTime = new DateTime(2024, 12, 12, 14, 43, 6, 860, DateTimeKind.Local).AddTicks(4638),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 1,
+                            IsAiAnalysisFailed = true,
+                            IsMisSellingDetected = true,
+                            MisSellingCategoryId = 1,
                             ModifiedBy = 0,
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartTime = new DateTime(2024, 12, 12, 14, 39, 6, 860, DateTimeKind.Local).AddTicks(4602),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Transcript = "ألو، مساء الخير. أنا من بنك القاهرة، ممكن أتكلم مع حضرتك عن عرض التمويل الجديد للشركات الصغيرة والمتوسطة؟\nمساء النور، اتفضل.\nعندنا عرض تمويل بفائدة منخفضة لتمويل توسعات شركتك. العرض ده ممكن يساعدك في تطوير البنية التحتية وزيادة الإنتاج.\nالعرض ده ممتاز، بس بصراحة الميزانية الحالية مش هتسمح لنا نتحمل أي قروض جديدة دلوقتي.\nما تقلقش، إحنا هنساعدك في ترتيب خطة دفع مريحة حتى لو مش هتقدر تلتزم بيها دلوقتي.\nطيب، ممكن نتكلم في التفاصيل أكتر، بس مش متأكد إني هقدر ألتزم دلوقتي.\nما فيش مشكلة، المهم إنك تبدأ وتستفيد من العرض."
                         },
                         new
                         {
-                            Id = new Guid("48d86a90-de73-472a-b6e7-7087f0a3d189"),
+                            Id = new Guid("c10066cb-7980-429d-b359-69b7d33dee01"),
                             BankBranchId = 1,
                             BankId = 3,
                             CbeCustomerId = "000010649258",
                             CreateBy = 0,
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndTime = new DateTime(2024, 12, 12, 14, 43, 6, 860, DateTimeKind.Local).AddTicks(4643),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 1,
+                            IsAiAnalysisFailed = true,
+                            IsMisSellingDetected = false,
                             ModifiedBy = 0,
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartTime = new DateTime(2024, 12, 12, 14, 39, 6, 860, DateTimeKind.Local).AddTicks(4642),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Transcript = "ألو، مساء الخير. أنا من بنك القاهرة، عندنا عرض تمويل جديد للشركات الصغيرة والمتوسطة.\nمساء النور، بس بصراحة مش مهتمين بأي تمويل جديد دلوقتي.\nالعرض ده بفائدة منخفضة وممكن يساعدك في توسعات شركتك.\nحتى لو الفائدة منخفضة، إحنا مش في وضع يسمح لنا نتحمل أي قروض جديدة دلوقتي.\nفاهم، لو احتجت أي مساعدة في المستقبل، إحنا موجودين."
                         },
                         new
                         {
-                            Id = new Guid("11865050-eb7b-4db3-a9ca-e52a6ab90425"),
+                            Id = new Guid("c6652b6d-4753-4c83-aecb-4298b31265d1"),
                             BankBranchId = 2,
                             BankId = 5,
                             CbeCustomerId = "000010649257",
                             CreateBy = 0,
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndTime = new DateTime(2024, 12, 12, 14, 43, 6, 860, DateTimeKind.Local).AddTicks(4647),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 2,
+                            IsAiAnalysisFailed = true,
+                            IsMisSellingDetected = true,
+                            MisSellingCategoryId = 1,
                             ModifiedBy = 0,
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartTime = new DateTime(2024, 12, 12, 14, 39, 6, 860, DateTimeKind.Local).AddTicks(4645),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Transcript = "ألو، مساء الخير. أنا من بنك الإسكندرية، عندنا عرض تمويل جديد للشركات الزراعية.\nمساء النور، اتفضل.\nالعرض ده بفائدة منخفضة وممكن يساعدك في تطوير المزارع وزيادة الإنتاج.\nالعرض ده كويس، بس بصراحة الميزانية الحالية مش هتسمح لنا نتحمل أي قروض جديدة دلوقتي.\nما تقلقش، إحنا هنساعدك في ترتيب خطة دفع مريحة حتى لو مش هتقدر تلتزم بيها دلوقتي.\nطيب، ممكن نتكلم في التفاصيل أكتر، بس مش متأكد إني هقدر ألتزم دلوقتي.\nما فيش مشكلة، المهم إنك تبدأ وتستفيد من العرض."
                         },
                         new
                         {
-                            Id = new Guid("3c5919bb-e1cc-44b9-b58d-0049cc5e7612"),
+                            Id = new Guid("48faf0e9-563f-4270-9d11-3c98963a7cbd"),
                             BankBranchId = 2,
                             BankId = 5,
                             CbeCustomerId = "000010649257",
                             CreateBy = 0,
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndTime = new DateTime(2024, 12, 12, 14, 43, 6, 860, DateTimeKind.Local).AddTicks(4659),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 2,
+                            IsAiAnalysisFailed = true,
+                            IsMisSellingDetected = false,
                             ModifiedBy = 0,
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartTime = new DateTime(2024, 12, 12, 14, 39, 6, 860, DateTimeKind.Local).AddTicks(4658),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Transcript = "ألو، مساء الخير. أنا من بنك الإسكندرية، عندنا عرض تمويل جديد للشركات الزراعية.\nمساء النور، بس بصراحة مش مهتمين بأي تمويل جديد دلوقتي.\nالعرض ده بفائدة منخفضة وممكن يساعدك في تطوير المزارع.\nحتى لو الفائدة منخفضة، إحنا مش في وضع يسمح لنا نتحمل أي قروض جديدة دلوقتي.\nفاهم، لو احتجت أي مساعدة في المستقبل، إحنا موجودين."
                         },
                         new
                         {
-                            Id = new Guid("accd246e-f6fc-477d-ae37-9bb5fa351d0f"),
+                            Id = new Guid("e96fc4f2-e334-483e-b915-a81dbca91132"),
                             BankBranchId = 3,
                             BankId = 1,
                             CbeCustomerId = "000010649255",
                             CreateBy = 0,
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndTime = new DateTime(2024, 12, 12, 14, 43, 6, 860, DateTimeKind.Local).AddTicks(4662),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 3,
+                            IsMisSellingDetected = false,
                             ModifiedBy = 0,
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartTime = new DateTime(2024, 12, 12, 14, 39, 6, 860, DateTimeKind.Local).AddTicks(4661),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Transcript = "ألو، مساء الخير. أنا من البنك الأهلي المصري، عندنا عرض جديد لبطاقة ائتمان بفائدة منخفضة.\nمساء النور، اتفضل.\nالبطاقة دي ممكن تساعدك في إدارة مصاريفك اليومية وتوفر لك عروض وخصومات حصرية.\nالعرض ده كويس، أنا مهتمة. إيه الإجراءات المطلوبة؟\nهنحتاج بعض الأوراق البسيطة، وممكن نبدأ في الإجراءات فورًا.\nتمام، هجهز الأوراق وأبعتهم لحضرتك."
                         },
                         new
                         {
-                            Id = new Guid("8a4b7b5f-94a0-4e6f-970b-056103ae6e2a"),
+                            Id = new Guid("28bb154c-2670-4a01-b8d8-336a4d6a24b8"),
                             BankBranchId = 3,
                             BankId = 1,
                             CbeCustomerId = "000010649255",
                             CreateBy = 0,
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndTime = new DateTime(2024, 12, 12, 14, 43, 6, 860, DateTimeKind.Local).AddTicks(4665),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 3,
+                            IsAiAnalysisFailed = true,
+                            IsMisSellingDetected = true,
+                            MisSellingCategoryId = 2,
                             ModifiedBy = 0,
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartTime = new DateTime(2024, 12, 12, 14, 39, 6, 860, DateTimeKind.Local).AddTicks(4664),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Transcript = "ألو، مساء الخير. أنا من البنك الأهلي المصري، عندنا عرض جديد لبطاقة ائتمان بفائدة منخفضة.\nمساء النور، بس بصراحة مش مهتمة ببطاقات ائتمان جديدة دلوقتي.\nالبطاقة دي ممكن تساعدك في إدارة مصاريفك اليومية وتوفر لك عروض وخصومات حصرية.\nحتى لو الفائدة منخفضة، أنا مش محتاجة بطاقة جديدة دلوقتي.\nلازم تاخدي البطاقة دي، هتساعدك كتير في مصاريفك.\nقلت لحضرتك مش مهتمة، شكراً."
                         },
                         new
                         {
-                            Id = new Guid("3c357718-ef56-47b8-bce3-abd3b324d109"),
+                            Id = new Guid("795b3d80-952b-4af2-91ee-35f93f3ce2d7"),
                             BankBranchId = 4,
                             BankId = 2,
                             CbeCustomerId = "000010649254",
                             CreateBy = 0,
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndTime = new DateTime(2024, 12, 12, 14, 43, 6, 860, DateTimeKind.Local).AddTicks(4668),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 4,
+                            IsAiAnalysisFailed = true,
+                            IsMisSellingDetected = true,
+                            MisSellingCategoryId = 1,
                             ModifiedBy = 0,
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartTime = new DateTime(2024, 12, 12, 14, 39, 6, 860, DateTimeKind.Local).AddTicks(4667),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Transcript = "ألو، مساء الخير. أنا من بنك مصر، عندنا عرض جديد لقرض شخصي بفائدة منخفضة.\nمساء النور، اتفضل.\nالقرض ده ممكن يساعدك في تغطية مصاريفك الشخصية أو أي احتياجات طارئة.\nالعرض ده كويس، بس بصراحة الميزانية الحالية مش هتسمح لي أتحمل أي قروض جديدة دلوقتي.\nما تقلقش، إحنا هنساعدك في ترتيب خطة دفع مريحة حتى لو مش هتقدر تلتزم بيها دلوقتي.\nطيب، ممكن نتكلم في التفاصيل أكتر، بس مش متأكد إني هقدر ألتزم دلوقتي.\nما فيش مشكلة، المهم إنك تبدأ وتستفيد من العرض."
                         },
                         new
                         {
-                            Id = new Guid("c48ff439-3fe0-4b5a-a9fe-49f594d87e93"),
+                            Id = new Guid("2838a41c-afdc-428f-8886-e5706fc4ff4f"),
                             BankBranchId = 4,
                             BankId = 2,
                             CbeCustomerId = "000010649254",
                             CreateBy = 0,
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndTime = new DateTime(2024, 12, 12, 14, 43, 6, 860, DateTimeKind.Local).AddTicks(4671),
+                            EndTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinancialServiceId = 4,
+                            IsAiAnalysisFailed = true,
+                            IsMisSellingDetected = false,
                             ModifiedBy = 0,
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartTime = new DateTime(2024, 12, 12, 14, 39, 6, 860, DateTimeKind.Local).AddTicks(4670),
+                            StartTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Transcript = "ألو، مساء الخير. أنا من بنك مصر، عندنا عرض جديد لقرض شخصي بفائدة منخفضة.\nمساء النور، بس بصراحة مش مهتم بأي قروض جديدة دلوقتي.\nالقرض ده ممكن يساعدك في تغطية مصاريفك الشخصية أو أي احتياجات طارئة.\nحتى لو الفائدة منخفضة، أنا مش في وضع يسمح لي أتحمل أي قروض جديدة دلوقتي.\nفاهم، لو احتجت أي مساعدة في المستقبل، إحنا موجودين."
                         });
