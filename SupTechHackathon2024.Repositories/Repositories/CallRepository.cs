@@ -1,5 +1,7 @@
-﻿using SupTechHackathon2024.EFCore;
+﻿using Microsoft.VisualBasic;
+using SupTechHackathon2024.EFCore;
 using SupTechHackathon2024.EFCore.Dtos;
+using SupTechHackathon2024.EFCore.DTOs;
 using SupTechHackathon2024.EFCore.Models;
 using SupTechHackathon2024.Repositories.Interfaces;
 using SupTechHackathon2024.Repositories.Repositories;
@@ -106,7 +108,8 @@ public class CallRepository : GenericRepositoryBase<Call>, ICallRepository
     {
         try
         {
-            var result = new AiYearlyReportInput{
+            var result = new AiYearlyReportInput
+            {
                 Year = year,
                 Categories = _context.Set<MisSellingCategory>().Select(cat => cat.NameAr).ToList(),
                 Products = _context.Set<FinancialService>().Select(cat => cat.NameAr).ToList(),
@@ -192,6 +195,33 @@ public class CallRepository : GenericRepositoryBase<Call>, ICallRepository
             throw;
         }
     }
+    public async Task<bool> UpdateCallAnalysis(CallAnalysisDto callAnalysis)
+    {
 
+        var result = entities.FirstOrDefault(c => c.Id == callAnalysis.id);
+
+
+        if (result != null)
+        {
+            if (callAnalysis.product != null)
+            {
+                var misSellingCategory = _context.Set<MisSellingCategory>().FirstOrDefault(c => c.NameAr.ToLower() == callAnalysis.misSellingCategory.ToLower() || c.NameEn.ToLower() == callAnalysis.misSellingCategory.ToLower());
+                result.MisSellingCategoryId = misSellingCategory?.Id;
+                result.IsMisSellingDetected = callAnalysis.isMisSellingDetected;
+            }
+
+            if (callAnalysis.product != null)
+            {
+                var financialService = _context.Set<FinancialService>().FirstOrDefault(c => c.NameAr.ToLower() == callAnalysis.product.ToLower() || c.NameEn.ToLower() == callAnalysis.product.ToLower());
+                result.FinancialServiceId = financialService?.Id;
+            }
+
+            result.IsAiAnalysisFailed = false;
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        return true;
+    }
 
 }
