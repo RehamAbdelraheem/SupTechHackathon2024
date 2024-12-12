@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SupTechHackathon2024.EFCore.DTOs;
 using SupTechHackathon2024.Services.Interfaces;
+using System.Collections.Generic;
 using System.Data;
 
 namespace SupTechHackathon2024.WebAPI.Controllers;
@@ -11,9 +12,12 @@ public class CustomerController : Controller
 {
 
     private readonly ICallService _cbeCustumerSupportService;
-    public CustomerController(ICallService CBECustumerSupportService)
+    private readonly ICbeCustomerService _cbeCustomerService;
+
+    public CustomerController(ICallService CBECustumerSupportService, ICbeCustomerService cbeCustomerService)
     {
         _cbeCustumerSupportService = CBECustumerSupportService;
+        _cbeCustomerService = cbeCustomerService;
     }
 
     /// <summary>
@@ -62,6 +66,28 @@ public class CustomerController : Controller
         else
         {
             return BadRequest("No Call found for this  key !");
+
+        }
+    }
+    /// <summary>
+    /// Add Customers Year Financial Report
+    /// </summary>
+    /// <returns>boolean state </returns>
+    ///<response code="200">return addind data    successfully</response>
+    ///<response code="400">return No  data hasbeen added</response>
+    [HttpPost]
+    [Route("AddCustomersYearFinancialReport")]
+    public async Task<IActionResult> AddCustomersYearFinancialReport(int bankId, short year, List<CustomerYearFinancialReportDto> CustomerYearFinancialReport)
+    {
+        var data = await _cbeCustomerService.AddCustomercYearFinancialReport(bankId, year, CustomerYearFinancialReport);
+        if (data == true)
+        {
+            return Ok("Call Updated successfully.");
+
+        }
+        else
+        {
+            return BadRequest("No  data hasbeen added !");
 
         }
     }

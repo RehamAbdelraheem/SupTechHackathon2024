@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using SupTechHackathon2024.EFCore;
 using SupTechHackathon2024.Repositories;
 using SupTechHackathon2024.Repositories.Interfaces;
@@ -23,18 +24,23 @@ builder.WebHost.ConfigureAppConfiguration(config =>
 
     b.AddConsole();
 });
-builder.Services.AddDbContext<CBEContext>((optionsBuilder) =>
-{
-    optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("CBE"));
-}, ServiceLifetime.Scoped);
+ 
+
+builder.Services.AddDbContext<CBEContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CBE")));
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
+//repositories
 builder.Services.AddScoped<ICallRepository, CallRepository>();
+builder.Services.AddScoped<ICbeCustomerRepository, CbeCustomerRepository>();
+
+//services
+builder.Services.AddTransient<ICbeCustomerService, CbeCustomerService>();
 builder.Services.AddTransient<ICallService, CallService>();
 var app = builder.Build();
 
