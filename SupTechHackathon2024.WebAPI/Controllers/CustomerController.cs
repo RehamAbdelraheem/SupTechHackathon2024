@@ -4,11 +4,13 @@ using System.Data;
 
 namespace SupTechHackathon2024.WebAPI.Controllers;
 
-public class CustumerController : Controller
+[ApiController]
+[Route("api/[controller]")]
+public class CustomerController : Controller
 {
 
     private readonly ICallService _CBECustumerSupportService;
-    public CustumerController(ICallService CBECustumerSupportService)
+    public CustomerController(ICallService CBECustumerSupportService)
     {
         _CBECustumerSupportService = CBECustumerSupportService;
     }
