@@ -1,7 +1,7 @@
 ﻿
 namespace SupTechHackathon2024.EFCore.DTOs
 {
-    public class CallSumaryDTO
+    public class CallSummaryDTO
     {
         public Guid Id { get; set; }
         public string CbeCustomerId { get; set; }
