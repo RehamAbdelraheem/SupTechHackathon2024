@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SupTechHackathon2024.Repositories;
+using SupTechHackathon2024.EFCore;
 
 #nullable disable
 
-namespace SupTechHackathon2024.Repositories.Migrations
+namespace SupTechHackathon2024.EFCore.Migrations
 {
     [DbContext(typeof(CBEContext))]
-    [Migration("20241211225317_Initial")]
+    [Migration("20241212092418_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -335,7 +335,7 @@ namespace SupTechHackathon2024.Repositories.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("162af433-2dd0-47e4-86bf-3cbd1f16796d"),
+                            Id = new Guid("68d1ba0a-4979-4083-94c6-232857c0d07f"),
                             BankBranchId = 1,
                             BankId = 3,
                             CbeCustomerId = "000010649258",
@@ -354,7 +354,7 @@ namespace SupTechHackathon2024.Repositories.Migrations
                         },
                         new
                         {
-                            Id = new Guid("132ba4c6-312a-45ad-af64-b79cbbcfd0cb"),
+                            Id = new Guid("b4e778f4-bf7c-4c27-b034-3fb6c6c18bd1"),
                             BankBranchId = 1,
                             BankId = 3,
                             CbeCustomerId = "000010649258",
@@ -372,7 +372,7 @@ namespace SupTechHackathon2024.Repositories.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0a5e0473-68ca-4d93-9fac-87d195ca1203"),
+                            Id = new Guid("e20f0191-5e18-4362-871b-7bc40f435fb2"),
                             BankBranchId = 2,
                             BankId = 5,
                             CbeCustomerId = "000010649257",
@@ -391,7 +391,7 @@ namespace SupTechHackathon2024.Repositories.Migrations
                         },
                         new
                         {
-                            Id = new Guid("42ed66e5-ec4d-46b4-9ecc-3eb9f49ea7bd"),
+                            Id = new Guid("ecff67c3-a4aa-4480-a2f6-409501d6f7db"),
                             BankBranchId = 2,
                             BankId = 5,
                             CbeCustomerId = "000010649257",
@@ -409,7 +409,7 @@ namespace SupTechHackathon2024.Repositories.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4a594ec6-0b75-4b96-b8bf-417cda60bcef"),
+                            Id = new Guid("13335d0c-5011-49d0-9d47-0ff799e2a5a1"),
                             BankBranchId = 3,
                             BankId = 1,
                             CbeCustomerId = "000010649255",
@@ -427,7 +427,7 @@ namespace SupTechHackathon2024.Repositories.Migrations
                         },
                         new
                         {
-                            Id = new Guid("37f1d91f-a6dd-40bf-b2b6-358d88290169"),
+                            Id = new Guid("c448cbae-f434-47b5-b9d4-eae911c151d4"),
                             BankBranchId = 3,
                             BankId = 1,
                             CbeCustomerId = "000010649255",
@@ -446,7 +446,7 @@ namespace SupTechHackathon2024.Repositories.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7f2113b9-87d3-47ff-8fa3-6d87e8b34f5d"),
+                            Id = new Guid("1de2cbb9-5afd-4881-8f9a-5976cd9a1ca6"),
                             BankBranchId = 4,
                             BankId = 2,
                             CbeCustomerId = "000010649254",
@@ -465,7 +465,7 @@ namespace SupTechHackathon2024.Repositories.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d6952843-7c81-4788-b676-a76ed38492f5"),
+                            Id = new Guid("d9a0d701-f3e7-4c27-9e3b-051f67b2f1f1"),
                             BankBranchId = 4,
                             BankId = 2,
                             CbeCustomerId = "000010649254",

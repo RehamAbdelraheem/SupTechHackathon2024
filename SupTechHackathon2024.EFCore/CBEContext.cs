@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Runtime.InteropServices;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore;
 using SupTechHackathon2024.EFCore.Models;
 
-namespace SupTechHackathon2024.Repositories
+namespace SupTechHackathon2024.EFCore
 {
     public partial class CBEContext : DbContext
     {

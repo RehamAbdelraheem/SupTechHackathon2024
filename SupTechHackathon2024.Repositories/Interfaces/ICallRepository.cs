@@ -5,7 +5,7 @@ namespace SupTechHackathon2024.Repositories.Interfaces
 {
     public interface ICallRepository : IGenericRepository<Call>
     { 
-        Task<CallSumaryDTO> GetCallReport();
+        Task<CallSummaryDTO> GetCallReport();
     }
 }
 

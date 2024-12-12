@@ -6,7 +6,7 @@ namespace SupTechHackathon2024.Services.Interfaces
 {
     public interface ICallService
     {
-        Task<CallSumaryDTO> GetCallReport();
+        Task<CallSummaryDTO> GetCallReport();
 
     }
 }

@@ -14,7 +14,7 @@ namespace SupTechHackathon2024.Services.Service
             _callRepository = callRepository;
         }
 
-        public async Task<CallSumaryDTO> GetCallReport()
+        public async Task<CallSummaryDTO> GetCallReport()
         {
             return await _callRepository.GetCallReport();
         }
