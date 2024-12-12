@@ -1192,10 +1192,8 @@ namespace SupTechHackathon2024.EFCore
                     CbeCustomerId = "000010649258",
                     BankId = 3,
                     BankBranchId = 1,
-                    FinancialServiceId = 1,
-                    MisSellingCategoryId = 1,
-                    IsAiAnalysisFailed = false,
-                    IsMisSellingDetected = true,
+                    StartTime = DateTime.Now.AddMinutes(-4),
+                    EndTime = DateTime.Now,
                     Transcript = "ألو، مساء الخير. أنا من بنك القاهرة، ممكن أتكلم مع حضرتك عن عرض التمويل الجديد للشركات الصغيرة والمتوسطة؟\n" +
                                  "مساء النور، اتفضل.\n" +
                                  "عندنا عرض تمويل بفائدة منخفضة لتمويل توسعات شركتك. العرض ده ممكن يساعدك في تطوير البنية التحتية وزيادة الإنتاج.\n" +
@@ -1211,10 +1209,8 @@ namespace SupTechHackathon2024.EFCore
                     CbeCustomerId = "000010649258",
                     BankId = 3,
                     BankBranchId = 1,
-                    FinancialServiceId = 1,
-                    MisSellingCategoryId = null,
-                    IsAiAnalysisFailed = false,
-                    IsMisSellingDetected = false,
+                    StartTime = DateTime.Now.AddMinutes(-4),
+                    EndTime = DateTime.Now,
                     Transcript = "ألو، مساء الخير. أنا من بنك القاهرة، عندنا عرض تمويل جديد للشركات الصغيرة والمتوسطة.\n" +
                                  "مساء النور، بس بصراحة مش مهتمين بأي تمويل جديد دلوقتي.\n" +
                                  "العرض ده بفائدة منخفضة وممكن يساعدك في توسعات شركتك.\n" +
@@ -1229,10 +1225,8 @@ namespace SupTechHackathon2024.EFCore
                     CbeCustomerId = "000010649257",
                     BankId = 5,
                     BankBranchId = 2,
-                    FinancialServiceId = 2,
-                    MisSellingCategoryId = 1,
-                    IsAiAnalysisFailed = false,
-                    IsMisSellingDetected = true,
+                    StartTime = DateTime.Now.AddMinutes(-4),
+                    EndTime = DateTime.Now,
                     Transcript = "ألو، مساء الخير. أنا من بنك الإسكندرية، عندنا عرض تمويل جديد للشركات الزراعية.\n" +
                                  "مساء النور، اتفضل.\n" +
                                  "العرض ده بفائدة منخفضة وممكن يساعدك في تطوير المزارع وزيادة الإنتاج.\n" +
@@ -1248,10 +1242,8 @@ namespace SupTechHackathon2024.EFCore
                     CbeCustomerId = "000010649257",
                     BankId = 5,
                     BankBranchId = 2,
-                    FinancialServiceId = 2,
-                    MisSellingCategoryId = null,
-                    IsAiAnalysisFailed = false,
-                    IsMisSellingDetected = false,
+                    StartTime = DateTime.Now.AddMinutes(-4),
+                    EndTime = DateTime.Now,
                     Transcript = "ألو، مساء الخير. أنا من بنك الإسكندرية، عندنا عرض تمويل جديد للشركات الزراعية.\n" +
                                  "مساء النور، بس بصراحة مش مهتمين بأي تمويل جديد دلوقتي.\n" +
                                  "العرض ده بفائدة منخفضة وممكن يساعدك في تطوير المزارع.\n" +
@@ -1266,10 +1258,8 @@ namespace SupTechHackathon2024.EFCore
                     CbeCustomerId = "000010649255",
                     BankId = 1,
                     BankBranchId = 3,
-                    FinancialServiceId = 3,
-                    MisSellingCategoryId = null,
-                    IsAiAnalysisFailed = false,
-                    IsMisSellingDetected = false,
+                    StartTime = DateTime.Now.AddMinutes(-4),
+                    EndTime = DateTime.Now,
                     Transcript = "ألو، مساء الخير. أنا من البنك الأهلي المصري، عندنا عرض جديد لبطاقة ائتمان بفائدة منخفضة.\n" +
                                  "مساء النور، اتفضل.\n" +
                                  "البطاقة دي ممكن تساعدك في إدارة مصاريفك اليومية وتوفر لك عروض وخصومات حصرية.\n" +
@@ -1284,10 +1274,8 @@ namespace SupTechHackathon2024.EFCore
                     CbeCustomerId = "000010649255",
                     BankId = 1,
                     BankBranchId = 3,
-                    FinancialServiceId = 3,
-                    MisSellingCategoryId = 2,
-                    IsAiAnalysisFailed = false,
-                    IsMisSellingDetected = true,
+                    StartTime = DateTime.Now.AddMinutes(-4),
+                    EndTime = DateTime.Now,
                     Transcript = "ألو، مساء الخير. أنا من البنك الأهلي المصري، عندنا عرض جديد لبطاقة ائتمان بفائدة منخفضة.\n" +
                                  "مساء النور، بس بصراحة مش مهتمة ببطاقات ائتمان جديدة دلوقتي.\n" +
                                  "البطاقة دي ممكن تساعدك في إدارة مصاريفك اليومية وتوفر لك عروض وخصومات حصرية.\n" +
@@ -1303,10 +1291,8 @@ namespace SupTechHackathon2024.EFCore
                     CbeCustomerId = "000010649254",
                     BankId = 2,
                     BankBranchId = 4,
-                    FinancialServiceId = 4,
-                    MisSellingCategoryId = 1,
-                    IsAiAnalysisFailed = false,
-                    IsMisSellingDetected = true,
+                    StartTime = DateTime.Now.AddMinutes(-4),
+                    EndTime = DateTime.Now,
                     Transcript = "ألو، مساء الخير. أنا من بنك مصر، عندنا عرض جديد لقرض شخصي بفائدة منخفضة.\n" +
                                     "مساء النور، اتفضل.\n" +
                                     "القرض ده ممكن يساعدك في تغطية مصاريفك الشخصية أو أي احتياجات طارئة.\n" +
@@ -1322,10 +1308,8 @@ namespace SupTechHackathon2024.EFCore
                     CbeCustomerId = "000010649254",
                     BankId = 2,
                     BankBranchId = 4,
-                    FinancialServiceId = 4,
-                    MisSellingCategoryId = null,
-                    IsAiAnalysisFailed = false,
-                    IsMisSellingDetected = false,
+                    StartTime = DateTime.Now.AddMinutes(-4),
+                    EndTime = DateTime.Now,
                     Transcript = "ألو، مساء الخير. أنا من بنك مصر، عندنا عرض جديد لقرض شخصي بفائدة منخفضة.\n" +
                                     "مساء النور، بس بصراحة مش مهتم بأي قروض جديدة دلوقتي.\n" +
                                     "القرض ده ممكن يساعدك في تغطية مصاريفك الشخصية أو أي احتياجات طارئة.\n" +

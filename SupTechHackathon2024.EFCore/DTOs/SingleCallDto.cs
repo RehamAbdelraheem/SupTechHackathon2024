@@ -1,26 +1,27 @@
 ﻿
-namespace SupTechHackathon2024.EFCore.DTOs
+namespace SupTechHackathon2024.EFCore.Dtos
 {
-    public class CallSummaryDTO
+    public class SingleCallDto
     {
         public Guid Id { get; set; }
         public string CbeCustomerId { get; set; }
         public IEnumerable<string> Categories { get; set; }
+        public IEnumerable<string> Products { get; set; }
         public string BankName { get; set; }
         public string BranchName { get; set; }
         public string Transcript { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
         public string CustomerTypeName { get; set; }
-        public IEnumerable<CustomerAddressDTO> CustomerAddresses { get; set; }
-        public IEnumerable<RiskRateHistoryDTO> CustomerRiskRateYearlyHistory { get; set; }
-        public IEnumerable<CreditBureauHistoryDTO> CustomerCreditBureauReportingYearlyHistory { get; set; }
-        public PersonDTO Person { get; set; }
-        public SmeDTO Sme { get; set; }
-        public IEnumerable<AnnualIncomeDTO> LastFiveYearsAnnualIncome { get; set; }
+        public IEnumerable<CustomerAddressDto> CustomerAddresses { get; set; }
+        public IEnumerable<RiskRateHistoryDto> CustomerRiskRateYearlyHistory { get; set; }
+        public IEnumerable<CreditBureauHistoryDto> CustomerCreditBureauReportingYearlyHistory { get; set; }
+        public PersonDto Person { get; set; }
+        public SmeDto Sme { get; set; }
+        public IEnumerable<AnnualIncomeDto> LastFiveYearsAnnualIncome { get; set; }
     }
 
-    public class CustomerAddressDTO
+    public class CustomerAddressDto
     {
         public string Country { get; set; }
         public string Governorate { get; set; }
@@ -29,20 +30,20 @@ namespace SupTechHackathon2024.EFCore.DTOs
         public string PostalCode { get; set; }
     }
 
-    public class RiskRateHistoryDTO
+    public class RiskRateHistoryDto
     {
         public string BankName { get; set; }
         public int Rate { get; set; }
         public int Year { get; set; }
     }
 
-    public class CreditBureauHistoryDTO
+    public class CreditBureauHistoryDto
     {
         public int Score { get; set; }
         public int Year { get; set; }
     }
 
-    public class PersonDTO
+    public class PersonDto
     {
         public string Gender { get; set; }
         public DateTime Birthdate { get; set; }
@@ -53,20 +54,20 @@ namespace SupTechHackathon2024.EFCore.DTOs
 
     }
 
-    public class AnnualIncomeDTO
+    public class AnnualIncomeDto
     {
         public string BankName { get; set; }
         public int Year { get; set; }
         public decimal Amount { get; set; }
         public string CurrencyName { get; set; }
     }
-    public class SmeDTO
+    public class SmeDto
     {
         public string IndustrySector { get; set; }
-        public IEnumerable<SmeYearlyFinancialStatementDTO> YearlyFinancialStatement { get; set; }
+        public IEnumerable<SmeYearlyFinancialStatementDto> YearlyFinancialStatement { get; set; }
     }
 
-    public class SmeYearlyFinancialStatementDTO
+    public class SmeYearlyFinancialStatementDto
     {
         public string BankName { get; set; }
         public DateTime ReportingDate { get; set; }

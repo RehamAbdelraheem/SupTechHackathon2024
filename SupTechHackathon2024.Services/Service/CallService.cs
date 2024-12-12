@@ -1,5 +1,6 @@
 ﻿
-using SupTechHackathon2024.EFCore.DTOs;
+using SupTechHackathon2024.EFCore.Dtos;
+using SupTechHackathon2024.EFCore.Models;
 using SupTechHackathon2024.Repositories.Interfaces;
 using SupTechHackathon2024.Services.Interfaces;
 
@@ -14,9 +15,14 @@ namespace SupTechHackathon2024.Services.Service
             _callRepository = callRepository;
         }
 
-        public async Task<CallSummaryDTO> GetCallReport()
+        public async Task<SingleCallDto> GetCallForAiAnalysis()
         {
-            return await _callRepository.GetCallReport();
+            return await _callRepository.GetCallForAiAnalysis();
+        }
+
+        public async Task<AiYearlyReportInput> GetCallsByYear(short year)
+        {
+            return await _callRepository.GetCallsByYear(year);
         }
 
     }
