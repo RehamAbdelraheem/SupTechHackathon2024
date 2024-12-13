@@ -58,16 +58,16 @@ public class CallRepository : GenericRepositoryBase<Call>, ICallRepository
                             Rate = rate.Rate,
                             Year = rate.Year
                         }).ToList(),
-                    LastFiveYearsAnnualIncome = c.CbeCustomer.RetailAnnualIncomes
-                    .Where(history => history.Year > (DateTime.Now.Year - 5))
-                        .OrderBy(br => br.Year)
-                        .Select(income => new AnnualIncomeDto
-                        {
-                            BankName = income.Bank.NameAr,
-                            Year = income.Year,
-                            Amount = income.Amount,
-                            CurrencyName = income.Currency.NameAr
-                        }).ToList(),
+                    //LastFiveYearsAnnualIncome = c.CbeCustomer.RetailAnnualIncomes
+                    //.Where(history => history.Year > (DateTime.Now.Year - 5))
+                    //    .OrderBy(br => br.Year)
+                    //    .Select(income => new AnnualIncomeDto
+                    //    {
+                    //        BankName = income.Bank.NameAr,
+                    //        Year = income.Year,
+                    //        Amount = income.Amount,
+                    //        CurrencyName = income.Currency.NameAr
+                    //    }).ToList(),
                     Sme = new SmeDto
                     {
                         IndustrySector = c.CbeCustomer.Sme.IndustrySector,
