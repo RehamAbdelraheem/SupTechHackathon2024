@@ -1,20 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SupTechHackathon2024.EFCore.DTOs;
 using SupTechHackathon2024.Services.Interfaces;
-using System.Collections.Generic;
-using System.Data;
 
 namespace SupTechHackathon2024.WebAPI.Controllers;
 
+
 [ApiController]
 [Route("api/[controller]")]
-public class CustomerController : Controller
+public class CallController : Controller
 {
 
     private readonly ICallService _cbeCustumerSupportService;
     private readonly ICbeCustomerService _cbeCustomerService;
 
-    public CustomerController(ICallService CBECustumerSupportService, ICbeCustomerService cbeCustomerService)
+    public CallController(ICallService CBECustumerSupportService, ICbeCustomerService cbeCustomerService)
     {
         _cbeCustumerSupportService = CBECustumerSupportService;
         _cbeCustomerService = cbeCustomerService;
@@ -49,7 +48,7 @@ public class CustomerController : Controller
     ///      Update Call Analysis
     /// </summary>
     /// <returns> updated status </returns>
-    ///<response code="200">Return updated call</response>
+    ///<response code="200">Return success message</response>
     ///<response code="400">Return No Call found for this  key</response>
     [HttpPost]
     [Route("SubmitCallAnalysis")]
@@ -65,25 +64,4 @@ public class CustomerController : Controller
             return BadRequest("No Call found for this  key !");
         }
     }
-    /// <summary>
-    /// Add Customers Year Financial Report
-    /// </summary>
-    /// <returns>boolean state </returns>
-    ///<response code="200">return addind data successfully</response>
-    ///<response code="400">return No  data hasbeen added</response>
-    [HttpPost]
-    [Route("AddCustomersYearFinancialReport")]
-    public async Task<IActionResult> AddCustomersYearFinancialReport(int bankId, short year, List<CustomerYearFinancialReportDto> CustomerYearFinancialReport)
-    {
-        var data = await _cbeCustomerService.AddCustomercYearFinancialReport(bankId, year, CustomerYearFinancialReport);
-        if (data == true)
-        {
-            return Ok("Call was updated successfully.");
-        }
-        else
-        {
-            return BadRequest("No data has been added !");
-        }
-    }
-
 }

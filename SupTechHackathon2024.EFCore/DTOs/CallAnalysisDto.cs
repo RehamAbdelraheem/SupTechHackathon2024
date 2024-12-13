@@ -10,9 +10,9 @@ namespace SupTechHackathon2024.EFCore.DTOs
     public class CallAnalysisDto
     {
 
-        public Guid id { get; set; }
-        public bool isMisSellingDetected { get; set; }
-        public string misSellingCategory { get; set; }
-        public string product { get; set; }
+        public Guid Id { get; set; }
+        public bool IsMisSellingDetected { get; set; }
+        public string? MisSellingCategory { get; set; }
+        public string ProductName { get; set; }
     }
 }

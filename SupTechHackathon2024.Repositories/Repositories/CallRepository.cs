@@ -198,21 +198,21 @@ public class CallRepository : GenericRepositoryBase<Call>, ICallRepository
     public async Task<bool> UpdateCallAnalysis(CallAnalysisDto callAnalysis)
     {
 
-        var result = entities.FirstOrDefault(c => c.Id == callAnalysis.id);
+        var result = entities.FirstOrDefault(c => c.Id == callAnalysis.Id);
 
 
         if (result != null)
         {
-            if (callAnalysis.product != null)
+            if (callAnalysis.MisSellingCategory != null)
             {
-                var misSellingCategory = _context.Set<MisSellingCategory>().FirstOrDefault(c => c.NameAr.ToLower() == callAnalysis.misSellingCategory.ToLower() || c.NameEn.ToLower() == callAnalysis.misSellingCategory.ToLower());
+                var misSellingCategory = _context.Set<MisSellingCategory>().FirstOrDefault(c => c.NameAr.ToLower() == callAnalysis.MisSellingCategory.ToLower() || c.NameEn.ToLower() == callAnalysis.MisSellingCategory.ToLower());
                 result.MisSellingCategoryId = misSellingCategory?.Id;
-                result.IsMisSellingDetected = callAnalysis.isMisSellingDetected;
+                result.IsMisSellingDetected = callAnalysis.IsMisSellingDetected;
             }
 
-            if (callAnalysis.product != null)
+            if (callAnalysis.ProductName != null)
             {
-                var financialService = _context.Set<FinancialService>().FirstOrDefault(c => c.NameAr.ToLower() == callAnalysis.product.ToLower() || c.NameEn.ToLower() == callAnalysis.product.ToLower());
+                var financialService = _context.Set<FinancialService>().FirstOrDefault(c => c.NameAr.ToLower() == callAnalysis.ProductName.ToLower() || c.NameEn.ToLower() == callAnalysis.ProductName.ToLower());
                 result.FinancialServiceId = financialService?.Id;
             }
 
